@@ -1,0 +1,1 @@
+# mogako_ide_front
