@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
 
-function ChangePasswordPage({ onChangePassword, onCancel }) {
+function ChangePasswordPage({ onChangePassword }) {
+  const navigate = useNavigate();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -13,6 +15,10 @@ function ChangePasswordPage({ onChangePassword, onCancel }) {
     } else {
       alert('New passwords do not match!');
     }
+  };
+
+  const handleCancel = () => {
+    navigate('/'); // 추후 루트 홈페이지 변경되면 mypage로 경로 추가해야함
   };
 
   return (
@@ -42,7 +48,7 @@ function ChangePasswordPage({ onChangePassword, onCancel }) {
       <Button variant="contained" color="primary" onClick={handlePasswordChange}>
         Change Password
       </Button>
-      <Button variant="contained" color="secondary" onClick={onCancel}>
+      <Button variant="contained" color="secondary" onClick={handleCancel}>
         Cancel
       </Button>
     </div>
