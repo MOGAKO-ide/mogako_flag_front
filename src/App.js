@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './Login';
+import Login from './LoginPage';
 import MyPage from './MyPage';
 import ChangePasswordPage from './ChangePasswordPage';
-import ChooseStage from './ChooseStage';
+import ChooseStage from './ChooseStagePage';
 
 function App() {
   return (

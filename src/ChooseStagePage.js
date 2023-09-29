@@ -2,12 +2,17 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 
-function ChooseStage({ username }) {
+// ... 기존 import ...
+
+function ChooseStagePage({ username }) {
   const navigate = useNavigate();
 
-  const handleStageClick = () => {
-    // 추후 단계 내부 화면 구현 시 해당 경로로 수정 필요
-    navigate('/mypage');
+  const handleStageClick = (stage) => {
+    if (stage === 'Stage 1') {
+      navigate('/mypage');
+    } else {
+      window.alert("준비중입니다.");
+    }
   };
 
   return (
@@ -25,9 +30,9 @@ function ChooseStage({ username }) {
             key={index}
             variant="contained"
             style={{ width: '200px', height: '400px', margin: '10px' }}
-            onClick={handleStageClick}
+            onClick={() => handleStageClick(stage)}  // 여기에서 stage 정보를 전달
           >
-            {/* 이 부분에서 국기 이미지와 나라 이름을 추가/수정하실 수 있습니다. */}
+            {/* 이 부분에서 국기 이미지와 나라 이름을 추가/수정 */}
             <img src="path_to_flag_image" alt="Flag" style={{ width: '100px', height: '100px' }} />
             <div>{stage}</div>
             <div>진행도: XX%</div>
@@ -38,4 +43,4 @@ function ChooseStage({ username }) {
   );
 }
 
-export default ChooseStage;
+export default ChooseStagePage;

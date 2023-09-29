@@ -29,7 +29,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-function Login() {
+function LoginPage() {
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -132,4 +132,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;
