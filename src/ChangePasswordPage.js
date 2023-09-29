@@ -18,7 +18,7 @@ function ChangePasswordPage({ onChangePassword }) {
   };
 
   const handleCancel = () => {
-    navigate('/'); // 추후 루트 홈페이지 변경되면 mypage로 경로 추가해야함
+    navigate('/mypage');
   };
 
   return (

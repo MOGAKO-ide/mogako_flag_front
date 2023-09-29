@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -30,6 +30,8 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 function Login() {
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,6 +39,9 @@ function Login() {
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    // 로그인 성공 시 단계선택화면으로 이동
+    navigate('/choosestage');
   };
 
   return (
@@ -128,4 +133,3 @@ function Login() {
 }
 
 export default Login;
-
