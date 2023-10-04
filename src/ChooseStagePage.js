@@ -1,15 +1,19 @@
 import React from 'react';
-import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import './ChooseStagePage.css';
+import Stage1Flag from './images/korea_flag.png';
+import Stage2Flag from './images/greece_flag.png';
+import Stage3Flag from './images/germany_flag.png';
+import Stage4Flag from './images/switzerland_flag.png';
 
-// ... 기존 import ...
-
-function ChooseStagePage({ username }) {
+function ChooseStagePage() {
   const navigate = useNavigate();
 
+  const flags = [Stage1Flag, Stage2Flag, Stage3Flag, Stage4Flag];
+
   const handleStageClick = (stage) => {
-    if (stage === 'Stage 1') {
-      navigate('/mypage');
+    if (stage === 'Korea') {
+      navigate('/stage');
     } else {
       window.alert("준비중입니다.");
     }
@@ -18,25 +22,23 @@ function ChooseStagePage({ username }) {
   return (
     <div className="choose-stage-container">
       <div className="user-info-box">
-        <span>{username}</span>
-        <Button variant="contained" onClick={() => navigate('/mypage')}>
+      <span>MOGAKO FLAG</span>
+        <button onClick={() => navigate('/mypage')}>
           My Page
-        </Button>
+        </button>
       </div>
 
       <div className="stages">
-        {['Stage 1', 'Stage 2', 'Stage 3', 'Stage 4'].map((stage, index) => (
-          <Button
+        {['Korea', 'Greece', 'Germany', 'Switzerland'].map((stage, index) => (
+          <button
             key={index}
-            variant="contained"
-            style={{ width: '200px', height: '400px', margin: '10px' }}
-            onClick={() => handleStageClick(stage)}  // 여기에서 stage 정보를 전달
+            className="stage-button"
+            onClick={() => handleStageClick(stage)} // stage 정보 전달
           >
-            {/* 이 부분에서 국기 이미지와 나라 이름을 추가/수정 */}
-            <img src="path_to_flag_image" alt="Flag" style={{ width: '100px', height: '100px' }} />
+            <img src={flags[index]} alt={`Flag for ${stage}`} />
             <div>{stage}</div>
             <div>진행도: XX%</div>
-          </Button>
+          </button>
         ))}
       </div>
     </div>
