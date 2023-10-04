@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './LoginPage';
+import Join from './JoinPage';
+
 import MyPage from './MyPage';
 import ChangePasswordPage from './ChangePasswordPage';
 import ChooseStage from './ChooseStagePage';
@@ -9,6 +11,11 @@ function App() {
   return (
     <Router>
       <Routes>
+        
+        {/* 로그인페이지 */}
+        <Route path="/join" element={<Join />} />
+
+
         <Route path="/" element={<Login />} />
         <Route path="/mypage" element={<MyPage 
           username="SampleUser"
