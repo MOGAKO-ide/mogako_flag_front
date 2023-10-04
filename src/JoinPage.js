@@ -33,7 +33,7 @@ function JoinPage() {
   //가입확인 알러트 state
   const [showAlert, setShowAlert] = useState(false);
 
-  //가입 최종서밋 함수
+  //가입완료 서밋 함수
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
