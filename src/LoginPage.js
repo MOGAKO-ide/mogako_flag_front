@@ -33,18 +33,20 @@ const defaultTheme = createTheme();
 function LoginPage() {
   const navigate = useNavigate();
 
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
   const handleLogin = () => {
-    axios.post('http://120.50.73.151:8080/api/auth/login', { username: 'dlwodud821', password: 'dlwodud'}).then(response => {
-      console.log(response.data)
-    })
+    axios.post('http://120.50.73.151:8080/api/auth/login', { username, password }).then(response => {
+      console.log(response.data);
+    });
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email: username,
+      password: password,
     });
 
     // 로그인 성공 시 단계선택화면으로 이동
@@ -95,6 +97,8 @@ function LoginPage() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -105,6 +109,8 @@ function LoginPage() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
