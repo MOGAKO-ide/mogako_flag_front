@@ -29,10 +29,17 @@ function StagePage() {
     }
   };
 
+  const goToNextLevel = () => {
+    alert('다음 난이도로 이동합니다!');
+    // 여기에 다음 난이도로 이동하는 로직을 추가해야함
+    // 예를 들면, React Router를 사용하여 다른 페이지로 이동하는 등 
+    // 아직 미구현이다아아ㅏ
+};
+
   return (
     <div className="container">
       <div className="top-bar">
-        <span>MOGAKO FLAG - Korea</span>
+        <span>Mogako-Korea</span>
       </div>
 
       <div className="app">
@@ -83,9 +90,16 @@ function StagePage() {
     <p>3. 태극의 파란색 부분은 파란색(blue)입니다.</p>
   </div>
   <br></br><br></br>
-  <p>완성도: {score}점</p>  {/* 점수 표시 부분 추가 */}
-</div>
+  <div className="scoreContainer">
+
+  <p>완성도: {score}점</p>
+                {/* 점수가 100점일 때만 버튼을 표시 */}
+                {score === 100 && <button onClick={goToNextLevel}>다음 난이도</button>}
+            </div>
+    </div>
+
         </div>
+        
       </div>
     
   );
