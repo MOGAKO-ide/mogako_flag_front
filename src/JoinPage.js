@@ -13,6 +13,10 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import { useState } from "react";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 const defaultTheme = createTheme();
 
@@ -37,14 +41,14 @@ function JoinPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const lastName = data.get("lastName");
-    const firstName = data.get("firstName");
+    const userName = data.get("userName");
+    const nickName = data.get("nickName");
     const email = data.get("email");
     const password = data.get("password");
 
     console.log({
-      lastName: data.get("lastName"),
-      firstName: data.get("firstName"),
+      userName: data.get("userName"),
+      nickName: data.get("nickName"),
       email: data.get("email"),
       password: data.get("password"),
       passwordConfirm: data.get("passwordConfirm"),
@@ -69,8 +73,10 @@ function JoinPage() {
       !/^[a-zA-Z0-9]+$/.test(newPassword)
     ) {
       setPasswordState("8자리 이상, 알파벳과 숫자만 입력 가능.(특수문자 제외)");
+      setIsButtonDisabled(true);
     } else {
       setPasswordState("유효한 비밀번호 입니다.");
+      setIsButtonDisabled(true);
     }
   };
 
@@ -81,6 +87,7 @@ function JoinPage() {
     if (newPasswordConfirm !== "") {
       if (newPasswordConfirm !== password) {
         setPasswordConfirmState("동일한 비밀번호를 입력하여 주세요.");
+        setIsButtonDisabled(true);
       } else {
         setPasswordConfirmState("비밀번호 확인완료.");
         setIsButtonDisabled(false);
@@ -132,74 +139,99 @@ function JoinPage() {
               onSubmit={handleSubmit}
               sx={{ mt: 1 }}
             >
-              {/* 이름 */}
-              <Grid container spacing={3}>
-                <Grid item xs={6}>
-                  <TextField
-                    autoComplete="family-name"
-                    name="lastName"
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                  />
-                </Grid>
-                {/* 성 */}
-                <Grid item xs={6}>
-                  <TextField
-                    autoComplete="given-name"
-                    name="firstName"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                  />
-                </Grid>
-              </Grid>
-              {/* 이메일 */}
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
-              {/* 비밀번호 */}
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                onChange={handlePasswordCheck}
-              />
-              <p>- {passwordState} </p>
-              {/* 비밀번호 재확인 */}
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="passwordConfirm"
-                label="Password Confirm"
-                type="password"
-                id="passwordConfirm"
-                onChange={handlePasswordConfirm}
-              />
-              <p>- {passwordConfirmState} </p>
-              {/* 가입완료버튼 */}
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                disabled={isButtonDisabled}
-              >
-                가입완료
-              </Button>
+              <Box sx={{ mb: 4 }}>
+                {" "}
+                {/* 유저네임, 닉네임, 이메일 부분 */}
+                <TextField
+                  margin="dense"
+                  autoComplete="name"
+                  name="userName"
+                  required
+                  fullWidth
+                  id="userName"
+                  label="User Name"
+                />
+                <TextField
+                  margin="dense"
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="Nick Name"
+                />
+                <TextField
+                  margin="dense"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Box>
+
+              <Box>
+                {" "}
+                {/* 패스워드 부분 */}
+                <TextField
+                  margin="dense"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  onChange={handlePasswordCheck}
+                />
+                <Typography
+                  variant="body2"
+                  gutterBottom
+                  component="div"
+                  sx={{
+                    mt: 0,
+                    color:
+                      passwordState === "유효한 비밀번호 입니다."
+                        ? "blue"
+                        : "inherit",
+                  }}
+                >
+                  - {passwordState}
+                </Typography>
+                <TextField
+                  margin="dense"
+                  required
+                  fullWidth
+                  name="passwordConfirm"
+                  label="Password Confirm"
+                  type="password"
+                  id="passwordConfirm"
+                  onChange={handlePasswordConfirm}
+                />
+                <Typography
+                  variant="body2"
+                  gutterBottom
+                  component="div"
+                  sx={{
+                    mt: 0,
+                    color:
+                      passwordConfirmState === "비밀번호 확인완료."
+                        ? "blue"
+                        : "inherit",
+                  }}
+                >
+                  - {passwordConfirmState}
+                </Typography>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  disabled={isButtonDisabled}
+                >
+                  가입완료
+                </Button>
+              </Box>
             </Box>
           </Box>
         </Grid>
