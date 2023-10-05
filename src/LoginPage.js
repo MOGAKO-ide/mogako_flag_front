@@ -13,7 +13,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import axios, { Axios } from 'axios';
+import axiosInstance from './AxiosInstance';  // 경로는 axiosInstance 파일 위치에 따라 조정
+
 
 function Copyright(props) {
   return (
@@ -42,10 +43,11 @@ function LoginPage() {
   const [password, setPassword] = React.useState('');
 
   const handleLogin = () => {
-    axios.post('http://120.50.73.151:8080/api/auth/login', { username, password }).then(response => {
-      console.log(response.data);
+    axiosInstance.post('auth/login', { username, password }).then(response => {
+        console.log(response.data);
     });
-  }
+}
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
