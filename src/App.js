@@ -6,7 +6,8 @@ import Join from './JoinPage';
 import MyPage from './MyPage';
 import ChangePasswordPage from './ChangePasswordPage';
 import ChooseStage from './ChooseStagePage';
-import StagePage from './StagePage';
+import StagePage1 from './StagePage1';
+import StagePage2 from './StagePage2';
 
 function App() {
   return (
@@ -29,7 +30,8 @@ function App() {
         <Route path="/choosestage" element={<ChooseStage
           username="SampleUser" 
         />} />
-        <Route path="/stage" element={<StagePage />} />
+        <Route path="/stage" element={<StagePage1 />} />
+        <Route path="/stage2" element={<StagePage2 />} />
       </Routes>
     </Router>
   );

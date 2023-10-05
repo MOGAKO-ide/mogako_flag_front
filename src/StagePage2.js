@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './StagePage.css';
 
-function StagePage() {
+function StagePage2() {
+  const navigate = useNavigate();
   const [flagBgColor, setFlagBgColor] = useState('');
   const [taegukRedColor, setTaegukRedColor] = useState('');
   const [taegukBlueColor, setTaegukBlueColor] = useState('');
@@ -14,8 +16,6 @@ function StagePage() {
     if (taegukBlueColor === 'blue') tempScore += 34; // 최종 점수를 100점으로 만들기 위해 1점 추가
     setScore(tempScore);
   }, [flagBgColor, taegukRedColor, taegukBlueColor]);
-
-
 
   const dynamicStyles = {
     '.flag': {
@@ -31,10 +31,9 @@ function StagePage() {
 
   const goToNextLevel = () => {
     alert('다음 난이도로 이동합니다!');
-    // 여기에 다음 난이도로 이동하는 로직을 추가해야함
-    // 예를 들면, React Router를 사용하여 다른 페이지로 이동하는 등 
-    // 아직 미구현이다아아ㅏ
-};
+    navigate('/stage2');
+  };
+
 
   return (
     <div className="container">
@@ -83,26 +82,22 @@ function StagePage() {
         </div>
 
         <div className="right">
-  <p>Hint</p>
-  <div className="hint">
-    <p>1. 국기의 배경색은 흰색입니다.</p>
-    <p>2. 태극의 빨간색 부분은 빨간색(red)입니다.</p>
-    <p>3. 태극의 파란색 부분은 파란색(blue)입니다.</p>
-  </div>
-  <br></br><br></br>
-  <div className="scoreContainer">
-
-  <p>완성도: {score}점</p>
-                {/* 점수가 100점일 때만 버튼을 표시 */}
-                {score === 100 && <button onClick={goToNextLevel}>다음 난이도</button>}
+            <p>Hint</p>
+            <div className="hint">
+              <p>1. 테스트.</p>
+              <p>2. 태극의 빨간색 부분은 빨간색(red)입니다.</p>
+              <p>3. 태극의 파란색 부분은 파란색(blue)입니다.</p>
             </div>
-    </div>
-
+            <br></br><br></br>
+            <div className="scoreContainer">
+              <p>완성도: {score}점</p>
+              {/* 점수가 100점일 때만 버튼을 표시 */}
+              {score === 100 && <button onClick={goToNextLevel}>다음 난이도</button>}
+            </div>
         </div>
-        
       </div>
-    
+    </div>
   );
 }
 
-export default StagePage;
+export default StagePage2;
