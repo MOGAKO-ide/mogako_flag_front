@@ -35,15 +35,15 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-function LoginPage() {
+function LoginPage({ onLogin, onTokenUpdate }) {
   const navigate = useNavigate();
 
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
   const handleLogin = () => {
-    axios.post('http://120.50.73.151:8080/api/auth/login', { username, password }).then(response => {
-      console.log(response.data);
+    axiosInstance.post('auth/login', { username, password }).then(response => {
+        console.log(response.data);
     });
   }
 
@@ -54,8 +54,7 @@ function LoginPage() {
       password: password,
     });
 
-    // 로그인 성공 시 단계선택화면으로 이동
-    navigate("/choosestage");
+    
   };
 
   return (
