@@ -2,7 +2,8 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 
-function MyPage({ username, userId, onLogout }) {
+function MyPage({ user, onLogout }) {
+  console.log(user);
   const navigate = useNavigate();
 
 
@@ -10,8 +11,8 @@ function MyPage({ username, userId, onLogout }) {
   // 반응형 고려하면 별도의 핸들러 함수를 정의하는 방식이 더 유용하고 확장성 좋음
 
   const handleLogout = () => {
-    // 로그아웃 로직을 처리한 후, 루트 홈페이지(Login)로 이동
-    navigate('/');
+    onLogout();  // App.js의 handleLogout 함수를 호출하여 상태를 초기화
+    navigate('/'); // 로그아웃 로직을 처리한 후, 루트 홈페이지(Login)로 이동
   };
 
   const handleChangePasswordClick = () => {
@@ -28,8 +29,8 @@ function MyPage({ username, userId, onLogout }) {
 
   return (
     <div className="my-page-container">
-      <h2>Welcome, {username}!</h2>
-      <p>Your User ID: {userId}</p>
+      <h2>Welcome, {user}!</h2>  {/* 추후 닉네임 받아오는 것으로 변경 */}
+      <p>Your User ID: {user}</p>
 
       <Button variant="contained" color="primary" onClick={handleLogout}>
         로그아웃
