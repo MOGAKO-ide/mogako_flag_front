@@ -31,18 +31,16 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-function LoginPage({ onLogin, onTokenUpdate }) {
+function LoginPage({ onLogin }) {
   const navigate = useNavigate();
 
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
   const handleLogin = () => {
-    axiosInstance.post('auth/login', { username, password }).then(response => {
+    axiosInstance.post('api/auth/login', { username, password }).then(response => {
       console.log(response.data);
       onLogin(username);
-      onTokenUpdate(response.data.value);
-
       navigate('/choosestage');
     })
     .catch(error => {

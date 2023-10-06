@@ -7,25 +7,20 @@ import ChooseStage from './ChooseStagePage';
 import StagePage1 from './StagePage1';
 import StagePage2 from './StagePage2';
 
-
-
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null); // 로그인한 사용자 정보
   useEffect(() => {
     console.log(loggedInUser);
   }, [loggedInUser]);
 
-  const [token, setToken] = useState(''); // 토큰
-
   const handleLogout = () => {
     setLoggedInUser(null);
-    setToken('');
   };
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login onLogin={setLoggedInUser} onTokenUpdate={setToken} />} />
+        <Route path="/" element={<Login onLogin={setLoggedInUser} />} />
         <Route path="/mypage" element={<MyPage user={loggedInUser} onLogout={handleLogout} />} />
         <Route path="/changepassword" element={<ChangePasswordPage user={loggedInUser} />} />
         <Route path="/choosestage" element={<ChooseStage user={loggedInUser} />} />
