@@ -6,7 +6,8 @@ import Stage2Flag from './images/greece_flag.png';
 import Stage3Flag from './images/germany_flag.png';
 import Stage4Flag from './images/switzerland_flag.png';
 
-function ChooseStagePage() {
+function ChooseStagePage({ user }) {
+  console.log(user); // 콘솔에 정보 넘어왔는지 확인 용도
   const navigate = useNavigate();
 
   const flags = [Stage1Flag, Stage2Flag, Stage3Flag, Stage4Flag];

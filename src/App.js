@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './LoginPage';
 import MyPage from './MyPage';
@@ -7,22 +7,28 @@ import ChooseStage from './ChooseStagePage';
 import StagePage1 from './StagePage1';
 import StagePage2 from './StagePage2';
 
+
+
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState(null); // 로그인한 사용자 정보
+  useEffect(() => {
+    console.log(loggedInUser);
+  }, [loggedInUser]);
+
+  const [token, setToken] = useState(''); // 토큰
+
+  const handleLogout = () => {
+    setLoggedInUser(null);
+    setToken('');
+  };
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/mypage" element={<MyPage 
-          username="SampleUser"
-          userId="user123"
-          onLogout={() => console.log("Logout clicked!")}
-        />} />
-        <Route path="/changepassword" element={<ChangePasswordPage 
-          onChangePassword={(current, newPass) => console.log(`Change from ${current} to ${newPass}`)}
-        />} />
-        <Route path="/choosestage" element={<ChooseStage
-          username="SampleUser" 
-        />} />
+        <Route path="/" element={<Login onLogin={setLoggedInUser} onTokenUpdate={setToken} />} />
+        <Route path="/mypage" element={<MyPage user={loggedInUser} onLogout={handleLogout} />} />
+        <Route path="/changepassword" element={<ChangePasswordPage user={loggedInUser} />} />
+        <Route path="/choosestage" element={<ChooseStage user={loggedInUser} />} />
         <Route path="/stage" element={<StagePage1 />} />
         <Route path="/stage2" element={<StagePage2 />} />
       </Routes>
@@ -31,6 +37,3 @@ function App() {
 }
 
 export default App;
-
-
-// 애플리케이션의 주요 구조와 라우팅을 담당

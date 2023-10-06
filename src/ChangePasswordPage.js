@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from './AxiosInstance';
 
-function ChangePasswordPage({ onChangePassword }) {
+function ChangePasswordPage({ user, onChangePassword }) {
   const navigate = useNavigate();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -11,9 +12,20 @@ function ChangePasswordPage({ onChangePassword }) {
 
   const handlePasswordChange = () => {
     if (newPassword === confirmPassword) {
-      onChangePassword(currentPassword, newPassword);
+      axiosInstance.patch(`/api/users/${user.username}`, { // 유저 정보를 이용하여 URL을 수정
+        beforePassword: currentPassword,
+        afterPassword: newPassword
+      }).then(response => {
+        alert('비밀번호 변경 성공!');
+      }).catch(error => {
+        if (error.response && error.response.status === 400) {
+          alert('이전 패스워드가 일치하지 않습니다.');
+        } else {
+          alert('비밀번호 변경 중 오류가 발생했습니다.');
+        }
+      });
     } else {
-      alert('New passwords do not match!');
+      alert('새로운 비밀번호가 일치하지 않습니다!');
     }
   };
 
@@ -44,7 +56,6 @@ function ChangePasswordPage({ onChangePassword }) {
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
-
       <Button variant="contained" color="primary" onClick={handlePasswordChange}>
         Change Password
       </Button>
