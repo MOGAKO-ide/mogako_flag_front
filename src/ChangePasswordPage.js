@@ -12,7 +12,7 @@ function ChangePasswordPage({ user, onChangePassword }) {
 
   const handlePasswordChange = () => {
     if (newPassword === confirmPassword) {
-      axiosInstance.patch(`/api/users/${user.username}`, { // 유저 정보를 이용하여 URL을 수정
+      axiosInstance.put(`/api/users/66cba1ab-c7a3-4c06-a1db-9be83da2e818`, { // 유저 정보를 이용하여 URL을 수정
         beforePassword: currentPassword,
         afterPassword: newPassword
       }).then(response => {
@@ -21,6 +21,7 @@ function ChangePasswordPage({ user, onChangePassword }) {
         if (error.response && error.response.status === 400) {
           alert('이전 패스워드가 일치하지 않습니다.');
         } else {
+        
           alert('비밀번호 변경 중 오류가 발생했습니다.');
         }
       });
