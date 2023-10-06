@@ -29,7 +29,7 @@ instance.interceptors.request.use(config => {
     console.log('Starting Request:', config); // 요청 시작시 요청 정보 출력
     const token = localStorage.getItem('AccessToken');
     if (token) {
-        config.headers['Authorization'] = 'Bearer ' + token;  // Bearer 토큰을 사용한다고 가정. 실제 토큰 유형에 따라 조정
+        config.headers['Authorization'] = 'Bearer ' + token;  // Bearer 토큰을 사용
     }
     return config;
 }, error => {
