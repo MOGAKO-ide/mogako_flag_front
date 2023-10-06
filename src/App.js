@@ -11,20 +11,11 @@ import StagePage2 from './pages/StagePage/StagePage2';
 import StagePage3 from './pages/StagePage/StagePage3';
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState(null); // 로그인한 사용자 정보
-  useEffect(() => {
-    console.log(loggedInUser);
-  }, [loggedInUser]);
-
-  const handleLogout = () => {
-    setLoggedInUser(null);
-  };
-
   return (
     <Router>
       <Routes>
         
-        {/* 로그인페이지 */}
+        
         <Route path="/join" element={<Join />} />
 
 
