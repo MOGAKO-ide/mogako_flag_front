@@ -24,6 +24,7 @@ instance.interceptors.response.use(response => {
 });
 
 
+
 // 요청 인터셉터: 모든 요청의 헤더에 토큰 추가
 instance.interceptors.request.use(config => {
     console.log('Starting Request:', config); // 요청 시작시 요청 정보 출력

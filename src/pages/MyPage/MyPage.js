@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from './AxiosInstance';
+import axiosInstance from '../../Components/AxiosInstance';
 
 function MyPage({ user, onLogout }) {
   console.log(user);
@@ -12,15 +12,12 @@ function MyPage({ user, onLogout }) {
 
   const handleLogoutRequest = async () => {
     try {
-      const response = await axiosInstance.post('api/auth/logout'); // 로그아웃 API 경로 추가/수정
-      
-      if (response.data && response.data.AccessToken !== undefined) {
-        localStorage.setItem('AccessToken', response.data.AccessToken); // 빈 값 저장
-        // 또는 localStorage.removeItem('AccessToken'); 로 토큰을 삭제
-      }
-      
+      await axiosInstance.post('api/auth/logout'); // 로그아웃 API 경로
+  
+      localStorage.removeItem('AccessToken'); // 토큰 삭제
       onLogout();  // App.js의 handleLogout 함수를 호출하여 상태를 초기화
       navigate('/'); // 로그아웃 후, 루트 홈페이지(Login)로 이동
+  
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // 401 에러 무시하고 로그아웃 처리
@@ -31,6 +28,7 @@ function MyPage({ user, onLogout }) {
       }
     }
   };
+  
 
   const handleChangePasswordClick = () => {
     // 비밀번호 변경 버튼 클릭시 비밀번호 변경 페이지 이동

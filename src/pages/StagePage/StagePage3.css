@@ -1,0 +1,224 @@
+.app {
+  display: flex;  
+  align-items: center;
+  padding: 20px; /* 간격 추가 */
+
+  width: 100%;  
+}
+
+
+.left, .right {
+  flex: 1;
+  padding: 0px;
+}
+  
+/* 아래는 코드 입력창에 관한 css */
+.code-container3 {
+  background-color: #A6E3E9;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative; 
+  top: 3%;
+  width: 52vw; 
+  height: 20%;
+  
+}
+
+.input-line {
+  display: flex;
+  align-items: center;
+}
+
+.input-line pre, .input-line input {
+  font-size: 18px;  /* 원하는 크기로 조정 */
+}
+
+
+
+.right p {
+  margin: 10px ;
+  padding-left: 150px;
+  font-size: 22px;  /* 글자 크기 추가 */
+}
+
+.hint {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 7px;
+}
+
+
+
+.top-bar {
+  background-color: #A6E3E9;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;  /* 텍스트와 왼쪽 가장자리 사이의 간격 */
+}
+
+.top-bar span {
+  font-size: 20px;  /* 글자 크기 조절 */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #A6E3E9;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #89c2d9;
+}
+
+.scoreContainer {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* p 요소와 button 요소 사이의 간격 */
+}
+
+
+
+/* 3단계 난이도 css*/
+:root {
+  --blue: #0047A0;
+  --red: #CD313A;
+  --black: #000000;
+  --white: #FFFFFF;
+  --trigrams-location-width: cos(atan2(2,3)) * (11/18);
+  --trigrams-location-height: sin(atan2(2,3)) * (11/12);
+  --brick-size: 1/6;
+}
+
+.flag3 {
+  position: relative;
+  background-color: #ffffff;
+  top: 7%;
+  width: 53vw;
+  height: 26.5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 5vw;
+  overflow: hidden;
+}
+/*-----------------------------------------------------------------------------*/
+.taeguk1-red3 {
+  position: relative;
+  width: 16vw;
+  height: 8vw;
+  border-top-left-radius: 25vw;
+  border-top-right-radius: 25vw;
+  background: #ff0000;
+  z-index: 1;
+
+}
+
+.taeguk1-blue3 {
+  position: relative;
+  width: 16vw;
+  height: 8vw;
+  border-bottom-left-radius: 25vw;
+  border-bottom-right-radius: 25vw;
+  background: #0000ff;
+  z-index: 1;
+}
+
+.movable-red3 {
+  position: relative;
+  width: 8vw;
+  height: 8vw;
+  border-radius: 50%;
+  background: #ff0000;
+  z-index: 2;
+  transform: translate(163.3%, -10%);
+}
+
+.movable-blue3 {
+  position: relative;
+  width: 8vw;
+  height: 8vw;
+  border-radius: 50%;
+  background: #0000ff;
+  z-index: 2;
+  transform: translate(-163.3%, 10%);
+}
+/*-----------------------------------------------------------------------------*/
+
+
+.trigrams {
+  position: absolute;
+  width: calc((var(--trigrams-location-width) + var(--brick-size)) * 100%);
+  height: calc((var(--trigrams-location-height) + var(--brick-size)) * 100%);
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  gap: calc(((var(--trigrams-location-width) - var(--brick-size)) / (var(--trigrams-location-width) + var(--brick-size))) * 100%);
+}
+
+.top,
+.bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sky,
+.water,
+.fire,
+.earth {
+  width: calc((var(--brick-size) / (var(--trigrams-location-width) + var(--brick-size))) * 100%);
+  display: grid;
+  column-gap: calc((1/12) * 100%);
+  row-gap: calc((1/8) * 100%);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.brick {
+  background-color: var(--black);
+}
+
+.sky {
+  grid-template-columns: 1fr;
+}
+
+.water {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.water .brick:nth-child(3) {
+  grid-column: span 2;
+}
+
+.fire {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.fire .brick:first-child,
+.fire .brick:last-child {
+  grid-column: span 2;
+}
+
+.sky,
+.earth {
+  transform: rotate(atan2(3, -2));
+}
+
+.water,
+.fire {
+  transform: rotate(atan2(3, 2));
+}
