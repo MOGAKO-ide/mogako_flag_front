@@ -1,10 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ChooseStagePage.css';
-import Stage1Flag from './images/korea_flag.png';
-import Stage2Flag from './images/greece_flag.png';
-import Stage3Flag from './images/germany_flag.png';
-import Stage4Flag from './images/switzerland_flag.png';
+
+// 이미지 경로를 public 디렉토리를 기반으로 수정
+const Stage1Flag = '/images/korea_flag.png';
+const Stage2Flag = '/images/greece_flag.png';
+const Stage3Flag = '/images/germany_flag.png';
+const Stage4Flag = '/images/switzerland_flag.png';
 
 function ChooseStagePage({ user }) {
   console.log(user); // 콘솔에 정보 넘어왔는지 확인 용도

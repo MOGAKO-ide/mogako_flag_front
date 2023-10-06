@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from './AxiosInstance';  // 경로는 axiosInstance 파일 위치에 따라 조정
+import axiosInstance from '../../Components/AxiosInstance';  // 경로는 axiosInstance 파일 위치에 따라 조정
 
 
 function Copyright(props) {
@@ -31,23 +31,34 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-function LoginPage({ onLogin }) {
+function LoginPage({ onLogin, onTokenUpdate }) {
   const navigate = useNavigate();
 
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
   const handleLogin = () => {
-    axiosInstance.post('api/auth/login', { username, password }).then(response => {
-      console.log(response.data);
-      onLogin(username);
-      navigate('/choosestage');
-    })
-    .catch(error => {
-      console.error("Login error:", error);
-
-    });
-}
+    axiosInstance.post('api/auth/login', { username, password })
+      .then(response => {
+        // 서버로부터의 응답 코드가 200일 때만 로그인 처리를 합니다.
+        if (response.status === 200) {
+          console.log(response.data);
+          onLogin(username);
+          navigate('/choosestage');
+        } else {
+          alert('로그인에 실패하였습니다.');
+        }
+      })
+      .catch(error => {
+        console.error("Login error:", error);
+        if (error.response && error.response.status === 400) {
+          alert('잘못된 정보를 입력하였습니다.');
+        } else {
+          alert('로그인 중 문제가 발생하였습니다.');
+        }
+      });
+  }
+  
 
 
   const handleSubmit = (event) => {
