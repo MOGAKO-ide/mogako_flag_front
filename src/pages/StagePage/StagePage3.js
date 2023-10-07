@@ -8,18 +8,24 @@ function StagePage3()
   const [score, setScore] = useState(0);
   const [skyOpacity, setSkyOpacity] = useState(0);  //감
   const [inputValue, setInputValue] = useState(''); //감
-  const [waterRotation, setWaterRotation] = useState('rotate(180deg)'); //건
+  const [waterRotation, setWaterRotation] = useState('rotate(0deg)'); // 건 초기 상태 설정
+  const [transformCorrect, setTransformCorrect] = useState(false); // 건 상태 만들어서 입력 확인하기
+ // 마지막 질문에 대해 작성중 아직 수정 중 - 10월 7일 이정원 -
+ const [fireOrder, setFireOrder] = useState(2);  
+ const [earthOrder, setEarthOrder] = useState(1);
+
 
 
   // 값이 정확한지 확인하고 점수를 업데이트 해주는 유저 이펙트 //
   useEffect(() => {
     let tempScore = 0;
     if (skyOpacity === 1) tempScore += 33; 
-    if (waterRotation === 'rotate(-180deg)') tempScore += 33; 
+    if (transformCorrect) tempScore += 33;
+
+    if (fireOrder === 1) tempScore += 34; // '화'와 '토'의 순서가 올바를 때 추가 점수
+
     setScore(tempScore);
-}, [skyOpacity, waterRotation]);
-
-
+}, [skyOpacity, waterRotation, transformCorrect, fireOrder, ]); 
 
   
   // 여기까지 유저이펙트 끝 아직 수정중 //
@@ -27,7 +33,7 @@ function StagePage3()
   //---  dynamicStyles 객체에 sky 클래스에 대한 스타일을 추가  -----//
   const dynamicStyles = {
     '.sky': {
-      opacity: skyOpacity === 'opacity' ? 1 : 0
+      opacity: skyOpacity
     },
     '.water': {
       transform: waterRotation
@@ -39,7 +45,7 @@ function StagePage3()
 
   const goToNextLevel = () => {
     alert('다음 난이도로 이동합니다!');
-    navigate();
+    navigate(); // 다시 메인으로 갈예정 - 수정 안함 이정원
   };
 
   return (
@@ -76,13 +82,13 @@ function StagePage3()
                 </div>
             </div>
             <div className="bottom">
-                <div className="fire">
+            <div className="fire" style={{ order: fireOrder }}>
                     <div className="brick"></div>
                     <div className="brick"></div>
                     <div className="brick"></div>
                     <div className="brick"></div>
                 </div>
-                <div className="earth">
+                <div className="earth" style={{ order: earthOrder }}>
                     <div className="brick"></div>
                     <div className="brick"></div>
                     <div className="brick"></div>
@@ -126,32 +132,50 @@ function StagePage3()
     placeholder="transform"
     onChange={(e) => {
         if (e.target.value === 'transform') {
-            setWaterRotation('rotate(-180deg)');
+            setTransformCorrect(true); 
+            // 이 부분을 단순화. 사용자가 'transform'을 입력하면 항상 rotate(50deg)로 설정하게 됩니다.
+            setWaterRotation('rotate(50deg)');
+        } else {
+            setTransformCorrect(false); 
         }
     }}
-/>{': rotate(180deg); \n}'} 
+/>
+
+{': rotate(50deg); \n}'} 
     </pre>
 </div>
 <br/><br />
     {/* 마지막질문  --------------------------------------- */}    
-
-
-
+      {/* 마지막 질문 --------------------------------------- */}
+      <div className="input-line">
+    <pre>.fire {'{\n'}          
+        <input
+            placeholder="order"
+            onChange={(e) => {
+              if (e.target.value === 'order') {
+                  setFireOrder(1);
+              }
+          }}
+        />
+        {': 1; \n}'}
+    </pre>
+</div>
+<br/><br />
         </div>
         </div>
         
-    {/*---------- 여기까지 질문 화면 끝 -------- 아직 수정중  */}
+    {/*————— 여기까지 질문 화면 끝 ———— 아직 수정중  */}
 
 
 
         <div className="right">
         <p>Hint</p>
-          <div className="hint">
-            {/* 힌트 내용을 작성. */}
-            <p>1. '건'의 투명도를 조절해보세요.</p>
-            <p>2. '곤'의 각도를 회전시켜 보세요.</p>
-           
-          </div>
+        <div className="hint">
+    <p>1. '건'의 투명도를 조절해보세요.</p>
+    <p>2. '곤'의 각도를 회전시켜 보세요.</p>
+    <p>3. '화'와 '토'의 위치를 원래대로 변경해보세요.</p>
+</div>
+
           <br /><br />
           <div className="scoreContainer">
             <p>완성도: {score}점</p>

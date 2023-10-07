@@ -20,10 +20,13 @@ instance.interceptors.response.use(response => {
     return response;
 }, error => {
     console.error('Response Error:', error); // 에러 발생시 콘솔에 에러 출력
+
+    if (error.response && error.response.status === 500) {
+        alert('서버에서 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+    }
+    
     return Promise.reject(error);
 });
-
-
 
 // 요청 인터셉터: 모든 요청의 헤더에 토큰 추가
 instance.interceptors.request.use(config => {
