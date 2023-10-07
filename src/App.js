@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/LoginPage/LoginPage';
 import Join from './pages/JoinPage/JoinPage';
@@ -10,17 +10,12 @@ import StagePage1 from './pages/StagePage/StagePage1';
 import StagePage2 from './pages/StagePage/StagePage2';
 import StagePage3 from './pages/StagePage/StagePage3';
 
-function App() {
-  const [loggedInUser, setLoggedInUser] = useState(null); // 로그인한 사용자 정보
-  useEffect(() => {
-    console.log(loggedInUser);
-  }, [loggedInUser]);
 
-  const [token, setToken] = useState(''); // 토큰
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태만 확인
 
   const handleLogout = () => {
-    setLoggedInUser(null);
-    setToken('');
+    setIsLoggedIn(false);
   };
 
   return (
@@ -31,10 +26,10 @@ function App() {
         <Route path="/join" element={<Join />} />
 
 
-        <Route path="/" element={<Login onLogin={setLoggedInUser} />} />
-        <Route path="/mypage" element={<MyPage user={loggedInUser} onLogout={handleLogout} />} />
-        <Route path="/changepassword" element={<ChangePasswordPage user={loggedInUser} />} />
-        <Route path="/choosestage" element={<ChooseStage user={loggedInUser} />} />
+        <Route path="/" element={<Login onLogin={setIsLoggedIn} />} />
+        <Route path="/mypage" element={<MyPage isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
+        <Route path="/changepassword" element={<ChangePasswordPage isLoggedIn={isLoggedIn} />} />
+        <Route path="/choosestage" element={<ChooseStage isLoggedIn={isLoggedIn} />} />
         <Route path="/stage" element={<StagePage1 />} />
         <Route path="/stage2" element={<StagePage2 />} />
         <Route path="/stage3" element={<StagePage3 />} />

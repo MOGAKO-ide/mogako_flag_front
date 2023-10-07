@@ -9,12 +9,12 @@ instance.interceptors.response.use(response => {
     console.log('Response:', response); // 여기에 응답을 출력합니다.
     
     // 로그인 요청에 대한 응답인 경우
-    if (response.config.url === 'auth/login' && response.data && response.data.value) {
+    if (response.config.url === 'auth/login' && response.data && response.data.accessToken) {
         // 기존 토큰 삭제
         localStorage.removeItem('AccessToken');
 
         // 새 토큰 저장
-        localStorage.setItem('AccessToken', response.data.value);
+        localStorage.setItem('AccessToken', response.data.accessToken.value);
     }
 
     return response;

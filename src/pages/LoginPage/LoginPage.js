@@ -31,7 +31,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-function LoginPage({ onLogin, onTokenUpdate }) {
+function LoginPage({ onLogin }) {
   const navigate = useNavigate();
 
   const [username, setUsername] = React.useState('');
@@ -40,10 +40,14 @@ function LoginPage({ onLogin, onTokenUpdate }) {
   const handleLogin = () => {
     axiosInstance.post('api/auth/login', { username, password })
       .then(response => {
-        // 서버로부터의 응답 코드가 200일 때만 로그인 처리를 합니다.
         if (response.status === 200) {
           console.log(response.data);
-          onLogin(username);
+          const userId = response.data.userId;
+
+          // localStorage.setItem('UserId', response.data.userId);
+          // localStorage.setItem('AccessToken', response.data.accessToken.value);
+          
+          onLogin(true); // 로그인 성공시 true로 설정
           navigate('/choosestage');
         } else {
           alert('로그인에 실패하였습니다.');
