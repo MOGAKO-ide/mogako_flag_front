@@ -226,3 +226,33 @@ button:hover {
   transform: rotate(atan2(3, 2));
   left: -30%;
 }
+
+
+.tooltip3 {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  left: 100%; /* 오른쪽에서 툴팁을 시작 */
+  margin-right: 5px; /* 아이콘과의 간격 */
+  opacity: 0;
+  transition: opacity 0.3s;
+  left: 50%;
+  padding-left: 50%;
+}
+
+.tooltip:hover .tooltiptex {
+  visibility: visible;
+  opacity: 1;
+}

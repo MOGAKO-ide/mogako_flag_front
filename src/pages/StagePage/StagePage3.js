@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './StagePage3.css';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import HomeIcon from '@mui/icons-material/Home';
 
 function StagePage3() 
 {
@@ -44,15 +46,33 @@ function StagePage3()
   //---------- 여기까지 다이나믹 객체 --------//
 
   const goToNextLevel = () => {
-    alert('다음 난이도로 이동합니다!');
-    navigate(); // 다시 메인으로 갈예정 - 수정 안함 이정원
+    alert('한국 국기 완료!');
+    navigate("/ChooseStage");
   };
+
+  const goBack = () => {
+    navigate(-1);
+};
+
+// 메인 홈페이지로 이동
+
+const goToChooseStagePage = () => {
+  navigate('/ChooseStage');
+};
 
   return (
     <div className="container">
-      <div className="top-bar">
-        <span>Mogako-Korea</span>
-      </div>
+<div className="top-bar">
+<span>Mogako-Korea</span>
+    <div className="icon-container"> 
+        <span onClick={goBack} style={{cursor: 'pointer'}}>  {/* goBack 함수를 호출합니다 */}
+            <ArrowBackIcon className="arrow-back" />
+        </span>
+        <span onClick={goToChooseStagePage} style={{cursor: 'pointer'}}>
+    <HomeIcon />
+</span>
+    </div>
+</div>
 
       <div className="app">
         <div className="left">
@@ -107,58 +127,92 @@ function StagePage3()
             <div className="code-container">
 
     {/* 처음 질문  --------------------------------------- */}    
-                <div className="input-line">
-                    <pre>.sky {'{\n'}          
-                    <input
-    placeholder="opacity"
-    onChange={(e) => {
-        setInputValue(e.target.value);
-        if (e.target.value === 'opacity') {
-            setSkyOpacity(1);
-        }
-    }}
-    value={inputValue}
-/>
+    <div className="input-line">
+    <pre>.sky {'{\n'}          
+    <input
+        placeholder=""
+        onChange={(e) => {
+            setInputValue(e.target.value);
+            if (e.target.value === 'opacity') {
+                setSkyOpacity(1);
+            }
+        }}
+        value={inputValue}
+    />
+    {': 1;                           \n}'} 
+    </pre>
+    <div className="tooltip">
+        Touch
+        <div className="tooltiptext">
+            힌트: 'opacity'는 요소의 투명도를 설정합니다. <br />
+            '0'은 완전 투명, '1'은 완전 불투명을 의미합니다.
+        </div>
+    </div>
+</div>
 
-                {': 1; \n}'} 
-                    </pre>
-                </div>
                 <br/><br />
 
     {/* second 질문  --------------------------------------- */}    
     <div className="input-line">
     <pre>.water {'{\n'}          
     <input
-    placeholder="transform"
+    placeholder=""
     onChange={(e) => {
         if (e.target.value === 'transform') {
             setTransformCorrect(true); 
-            // 이 부분을 단순화. 사용자가 'transform'을 입력하면 항상 rotate(50deg)로 설정하게 됩니다.
             setWaterRotation('rotate(50deg)');
         } else {
             setTransformCorrect(false); 
         }
     }}
 />
+{': rotate(50deg);               \n}'} </pre>              
+    <div className="tooltip">
+        Touch
+        <div className="tooltiptext">
+            힌트:<br /> 'transform'은 요소의 모양을 바꾸는데 사용됩니다.
+        </div>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-{': rotate(50deg); \n}'} 
-    </pre>
+    <div className="tooltip">
+        Touch
+        <div className="tooltiptext">
+            힌트:<br /> 'rotate'는 요소를 지정된 각도로 회전시킵니다.
+        </div>
+    </div>
 </div>
+
 <br/><br />
     {/* 마지막질문  --------------------------------------- */}    
       {/* 마지막 질문 --------------------------------------- */}
       <div className="input-line">
     <pre>.fire {'{\n'}          
         <input
-            placeholder="order"
+            placeholder=""
             onChange={(e) => {
               if (e.target.value === 'order') {
                   setFireOrder(1);
               }
           }}
         />
-        {': 1; \n}'}
-    </pre>
+        {': 1;                           \n}'} </pre>              
+    <div className="tooltip">
+        Touch
+        <div className="tooltiptext">
+            힌트: 'order'는 아이템의 순서를 바꾸는데 사용됩니다. <br />
+            숫자가 클수록 아이템은 더 뒤쪽으로 갑니다.
+        </div>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <div className="tooltip">
+        Touch
+        <div className="tooltiptext">
+            힌트:<br /> 팔괘중 리는 곤보다 <br />
+            숫자가 더 높습니다.
+        </div>
+    </div>
 </div>
 <br/><br />
         </div>
@@ -172,8 +226,8 @@ function StagePage3()
         <p>Hint</p>
         <div className="hint">
     <p>1. '건'의 투명도를 조절해보세요.</p>
-    <p>2. '곤'의 각도를 회전시켜 보세요.</p>
-    <p>3. '화'와 '토'의 위치를 원래대로 변경해보세요.</p>
+    <p>2. '감'의 각도를 회전시켜 보세요.</p>
+    <p>3. '곤'과 '리'의 위치를 원래대로 변경해보세요.</p>
 </div>
 
           <br /><br />
@@ -189,3 +243,9 @@ function StagePage3()
 
 
 export default StagePage3;
+
+/*
+스테이지3
+완전한 태극기를 만들어보며 여러가지의 css 속성 배우기
+기울기와 투명도 그리고 간단한 우선순위? 를 배우며 css 속성 배우기
+*/

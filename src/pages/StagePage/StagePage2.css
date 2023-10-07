@@ -2,7 +2,6 @@
   display: flex;  
   align-items: center;
   padding: 20px; /* 간격 추가 */
-
   width: 100%;  
 }
 
@@ -12,10 +11,9 @@
   padding: 0px;
 }
 
-.flag {
+.flag2 {
   position: relative;  /* 변경된 부분 */
   background-color: #e3fdfd;
-  top: 7%;
   width: 53vw;
   height: 26.5vw;
   display: flex;
@@ -33,6 +31,7 @@
   border-top-right-radius: 25vw;
   background: #ff0000;
   z-index: 1;
+  
 }
 
 .taeguk1-blue {
@@ -75,7 +74,7 @@
   padding: 10px;
   border-radius: 5px;
   position: relative; 
-  top: 20px;
+  top: 3%;
   width: 52vw; 
   height: 20%;
   
@@ -100,7 +99,8 @@
 
 .hint {
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 10px;
+  font-size: 7px;
 }
 
 
@@ -145,4 +145,35 @@ button:hover {
   display: flex;
   align-items: center;
   gap: 40px; /* p 요소와 button 요소 사이의 간격 */
+}
+
+
+/* 지금부터는 툴팁 만드는 중 스테이지 2*/
+.tooltip2 {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  left: 100%; /* 오른쪽에서 툴팁을 시작 */
+  margin-right: 5px; /* 아이콘과의 간격 */
+  opacity: 0;
+  transition: opacity 0.3s;
+  left: 50%;
+  padding-left: 50%;
+}
+
+.tooltip:hover .tooltiptex {
+  visibility: visible;
+  opacity: 1;
 }

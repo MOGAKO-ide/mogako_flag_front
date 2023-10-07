@@ -16,11 +16,11 @@ body {
   padding: 0px;
 }
 
-.flag {
+.flag1 {
   width: 100%;
   height: 500px;
   position: relative;
-  background-color: #e3fdfd; /* 배경색을 흰색으로 설정 */
+  background-color: #e3fdfd; 
 }
 
 .taeguk-red, .taeguk-blue {
@@ -83,13 +83,22 @@ body {
   width: 100%;
   height: 50px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding-left: 20px;  /* 텍스트와 왼쪽 가장자리 사이의 간격 */
+  padding-left: 20px;
 }
 
-.top-bar span {
-  font-size: 20px;  /* 글자 크기 조절 */
+.arrow-back {
+  margin-right: 15px;  /* 버튼 사이의 간격을 20px로 설정 */
 }
+
+
+.icon-container {
+  display: flex;  
+  align-items: center;
+  margin-right: 10%;
+}
+
 
 .container {
   display: flex;
@@ -118,4 +127,34 @@ button:hover {
   display: flex;
   align-items: center;
   gap: 40px; /* p 요소와 button 요소 사이의 간격 */
+}
+
+/* 지금부터는 툴팁 만드는 중 */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  left: 100%; /* 오른쪽에서 툴팁을 시작 */
+  margin-right: 5px; /* 아이콘과의 간격 */
+  opacity: 0;
+  transition: opacity 0.3s;
+  left: 50%;
+  padding-left: 50%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }
