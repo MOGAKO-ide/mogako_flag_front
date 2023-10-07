@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/LoginPage/LoginPage';
-import Join from './JoinPage';
+import Join from './pages/join/JoinPage';
 
 import MyPage from './pages/MyPage/MyPage';
 import ChangePasswordPage from './pages/ChangePasswordPage/ChangePasswordPage';

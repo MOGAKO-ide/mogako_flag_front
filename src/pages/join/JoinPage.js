@@ -13,25 +13,21 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import { useState } from "react";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
+import axiosInstance from "../../Components/AxiosInstance";
 
 const defaultTheme = createTheme();
 
 function JoinPage() {
   const navigate = useNavigate();
+
+  //이름, 닉네임, 이메일 체크 state
+  const [joinInfoCheck, setJoinInfoCheck] = useState("가입 정보를 알맞게 입력해 주세요.")
   //비밀번호 state
   const [password, setPassword] = useState("");
   //비밀번호 유효성 state
-  const [passwordState, setPasswordState] = useState(
-    "8자리 이상, 알파벳과 숫자만 입력 가능.(특수문자 제외)"
-  );
+  const [passwordState, setPasswordState] = useState("8자리 이상, 알파벳과 숫자만 입력 가능.(특수문자 제외)");
   //비밀번호 재확인 state
-  const [passwordConfirmState, setPasswordConfirmState] = useState(
-    "동일한 비밀번호를 입력하여 주세요."
-  );
+  const [passwordConfirmState, setPasswordConfirmState] = useState("동일한 비밀번호를 입력하여 주세요.");
   //가입버튼 활성화 관리 state
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   //가입확인 알러트 state
@@ -41,26 +37,45 @@ function JoinPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const userName = data.get("userName");
-    const nickName = data.get("nickName");
+    const username = data.get("username");
+    const nickname = data.get("nickname");
     const email = data.get("email");
     const password = data.get("password");
 
     console.log({
-      userName: data.get("userName"),
-      nickName: data.get("nickName"),
+      username: data.get("username"),
+      nickname: data.get("nickname"),
       email: data.get("email"),
       password: data.get("password"),
       passwordConfirm: data.get("passwordConfirm"),
     });
 
-    //가입 완료 메시지 알러트
-    setShowAlert(true);
-    // 알림 표시 후 3초 후에 메인화면으로 이동
-    setTimeout(() => {
-      navigate("/");
-    }, 3000);
+    //조건문 달아서 가입완료여부 확인하고 가입완료 -> 가입 불가 나누기
+    axiosInstance
+      .post("api/users", { username, nickname, email, password })
+      .than((response) => {
+        //응답이 200이면 회원가입, 로그인페이지로 이동
+        if (response.status === 200) {
+          //가입 완료 메시지 알러트
+          setShowAlert(true);
+          // 알림 표시 후 3초 후에 메인화면으로 이동
+          setTimeout(() => {
+            navigate("/");
+          }, 3000);
+        } else {
+          setJoinInfoCheck(handleJoinInfo);
+        }
+      });
   };
+
+const handleJoinInfo = (nameValue, nicknameValue, emailValue ) => {
+  const newUsernameValue = nameValue;
+  const newNicknameValue = nicknameValue;
+  const newEmailValue = emailValue;
+
+  if (newUsernameValue !== "" && )
+
+}
 
   //비밀번호 유효성 검사함수
   const handlePasswordCheck = (event) => {
@@ -145,19 +160,19 @@ function JoinPage() {
                 <TextField
                   margin="dense"
                   autoComplete="name"
-                  name="userName"
+                  name="username"
                   required
                   fullWidth
-                  id="userName"
+                  id="username"
                   label="User Name"
                 />
                 <TextField
-                  margin="dense"
-                  autoComplete="given-name"
-                  name="firstName"
+                  margin="nickname"
+                  autoComplete="nickname"
+                  name="nickname"
                   required
                   fullWidth
-                  id="firstName"
+                  id="nickname"
                   label="Nick Name"
                 />
                 <TextField
@@ -169,6 +184,21 @@ function JoinPage() {
                   name="email"
                   autoComplete="email"
                 />
+                               
+                 <Typography
+                  variant="body2"
+                  gutterBottom
+                  component="div"
+                  sx={{
+                    mt: 0,
+                    color:
+                    setJoinInfoCheck === "비밀번호 확인완료."
+                        ? "blue"
+                        : "inherit",
+                  }}
+                >
+                 - {joinInfoCheck}
+                </Typography>
               </Box>
 
               <Box>

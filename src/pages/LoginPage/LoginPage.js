@@ -163,7 +163,12 @@ function LoginPage({ onLogin, onTokenUpdate }) {
                   </Link>
                 </Grid>
                 <Grid item>
+<<<<<<< Updated upstream
                   <Link href="join" variant="body2">
+=======
+                  <Link href="#" variant="body2"
+                  onClick={() => navigate('/join')}>
+>>>>>>> Stashed changes
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
