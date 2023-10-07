@@ -8,7 +8,54 @@ import HomeIcon from '@mui/icons-material/Home';
 const acceptedWhiteColors = ['white', '#fff', '#ffffff', '#FFF', '#FFFFFF'];
 const acceptedRedColors = ['red', '#f00', '#ff0000', '#F00', '#FF0000'];
 const acceptedBlueColors = ['blue', '#00f', '#0000ff', '#00F', '#0000FF'];
-/* 위에 코드 건들면 코드 꼬입니다!! - 이정원*/ 
+const acceptedGreenColors = ['green', '#0f0', '#00ff00', '#0F0', '#00FF00'];
+const acceptedYellowColors = ['yellow', '#ff0', '#ffff00', '#FF0', '#FFFF00'];
+const acceptedPurpleColors = ['purple', '#800080', '#800080', '#800080', '#800080'];
+const acceptedOrangeColors = ['orange', '#ffa500', '#ffa500', '#FFA500', '#FFA500'];
+const acceptedBlackColors = ['black', '#000', '#000000', '#000', '#000000'];
+const acceptedGrayColors = ['gray', '#808080', '#808080', '#808080', '#808080'];
+const acceptedPinkColors = ['pink', '#ffc0cb', '#ffc0cb', '#FFC0CB', '#FFC0CB'];
+const acceptedBrownColors = ['brown', '#a52a2a', '#a52a2a', '#A52A2A', '#A52A2A'];
+const acceptedTealColors = ['teal', '#008080', '#008080', '#008080', '#008080'];
+const acceptedCyanColors = ['cyan', '#00ffff', '#00ffff', '#00FFFF', '#00FFFF'];
+const acceptedMagentaColors = ['magenta', '#ff00ff', '#ff00ff', '#FF00FF', '#FF00FF'];
+const acceptedLimeColors = ['lime', '#00ff00', '#00ff00', '#00FF00', '#00FF00'];
+const acceptedIndigoColors = ['indigo', '#4b0082', '#4b0082', '#4B0082', '#4B0082'];
+const acceptedBeigeColors = ['beige', '#f5f5dc', '#f5f5dc', '#F5F5DC', '#F5F5DC'];
+const acceptedOliveColors = ['olive', '#808000', '#808000', '#808000', '#808000'];
+const acceptedMaroonColors = ['maroon', '#800000', '#800000', '#800000', '#800000'];
+const acceptedGoldColors = ['gold', '#ffd700', '#ffd700', '#FFD700', '#FFD700'];
+const acceptedSilverColors = ['silver', '#c0c0c0', '#c0c0c0', '#C0C0C0', '#C0C0C0'];
+const acceptedLavenderColors = ['lavender', '#e6e6fa', '#e6e6fa', '#E6E6FA', '#E6E6FA'];
+const acceptedTanColors = ['tan', '#d2b48c', '#d2b48c', '#D2B48C', '#D2B48C'];
+const acceptedCoralColors = ['coral', '#ff7f50', '#ff7f50', '#FF7F50', '#FF7F50'];
+const acceptedNavyColors = ['navy', '#000080', '#000080', '#000080', '#000080'];
+const acceptedTurquoiseColors = ['turquoise', '#40e0d0', '#40e0d0', '#40E0D0', '#40E0D0'];
+const acceptedSteelBlueColors = ['steelblue', '#4682b4', '#4682b4', '#4682B4', '#4682B4'];
+const acceptedPeruColors = ['peru', '#cd853f', '#cd853f', '#CD853F', '#CD853F'];
+const acceptedChartreuseColors = ['chartreuse', '#7fff00', '#7fff00', '#7FFF00', '#7FFF00'];
+const acceptedKhakiColors = ['khaki', '#f0e68c', '#f0e68c', '#F0E68C', '#F0E68C'];
+const acceptedPlumColors = ['plum', '#dda0dd', '#dda0dd', '#DDA0DD', '#DDA0DD'];
+const acceptedOliveDrabColors = ['olivedrab', '#6b8e23', '#6b8e23', '#6B8E23', '#6B8E23'];
+const acceptedCrimsonColors = ['crimson', '#dc143c', '#dc143c', '#DC143C', '#DC143C'];
+const acceptedDarkCyanColors = ['darkcyan', '#008b8b', '#008b8b', '#008B8B', '#008B8B'];
+const acceptedLightSalmonColors = ['lightsalmon', '#ffa07a', '#ffa07a', '#FFA07A', '#FFA07A'];
+const acceptedMediumPurpleColors = ['mediumpurple', '#9370db', '#9370db', '#9370DB', '#9370DB'];
+const acceptedLightGreenColors = ['lightgreen', '#90ee90', '#90ee90', '#90EE90', '#90EE90'];
+const acceptedSlateBlueColors = ['slateblue', '#6a5acd', '#6a5acd', '#6A5ACD', '#6A5ACD'];
+const acceptedSandyBrownColors = ['sandybrown', '#f4a460', '#f4a460', '#F4A460', '#F4A460'];
+const acceptedDarkMagentaColors = ['darkmagenta', '#8b008b', '#8b008b', '#8B008B', '#8B008B'];
+const acceptedMediumSeaGreenColors = ['mediumseagreen', '#3cb371', '#3cb371', '#3CB371', '#3CB371'];
+const acceptedRoyalBlueColors = ['royalblue', '#4169e1', '#4169e1', '#4169E1', '#4169E1'];
+const acceptedMediumOrchidColors = ['mediumorchid', '#ba55d3', '#ba55d3', '#BA55D3', '#BA55D3'];
+const acceptedLightCyanColors = ['lightcyan', '#e0ffff', '#e0ffff', '#E0FFFF', '#E0FFFF'];
+const acceptedMediumTurquoiseColors = ['mediumturquoise', '#48d1cc', '#48d1cc', '#48D1CC', '#48D1CC'];
+const acceptedGoldenrodColors = ['goldenrod', '#daa520', '#daa520', '#DAA520', '#DAA520'];
+const acceptedAquamarineColors = ['aquamarine', '#7fffd4', '#7fffd4', '#7FFFD4', '#7FFFD4'];
+const acceptedMediumSpringGreenColors = ['mediumspringgreen', '#00fa9a', '#00fa9a', '#00FA9A', '#00FA9A'];
+const acceptedDarkOrangeColors = ['darkorange', '#ff8c00', '#ff8c00', '#FF8C00', '#FF8C00'];
+const acceptedLightPinkColors = ['lightpink', '#ffb6c1', '#ffb6c1', '#FFB6C1', '#FFB6C1'];
+/* 위에 코드 건들면 색상 입력코드 꼬입니다!! 사실 더 쉽게 하고싶은 방법을 찾고싶지만 실패했습니다..- 이정원*/ 
 
 
 /* 코치님이 분명 유즈 스테이트 말고 다른거 사용해보라고 했는데 기억나는 분 저한테 디코 한번만 부탁드릴게요! - 이정원 */
@@ -34,7 +81,17 @@ function StagePage1() {
 
 /* 지금 정답에 추가로 뭐를 입력해도 색이 안변하는 문제를 발견해 수정하는 중 - 이정원 10 월 7일 시작 */
 /* 아래의 코드가 가장 어렵네.. */
-const allColors = [...acceptedWhiteColors, ...acceptedRedColors, ...acceptedBlueColors];
+const allColors = [
+  ...acceptedWhiteColors, ...acceptedRedColors, ...acceptedBlueColors, ...acceptedGreenColors, ...acceptedYellowColors, ...acceptedPurpleColors, ...acceptedOrangeColors, 
+  ...acceptedBlackColors, ...acceptedGrayColors, ...acceptedPinkColors, ...acceptedBrownColors, ...acceptedTealColors, ...acceptedCyanColors, 
+  ...acceptedMagentaColors, ...acceptedLimeColors,...acceptedIndigoColors, ...acceptedBeigeColors, ...acceptedOliveColors, ...acceptedMaroonColors, 
+  ...acceptedGoldColors, ...acceptedSilverColors, ...acceptedLavenderColors, ...acceptedTanColors, ...acceptedCoralColors, 
+  ...acceptedNavyColors, ...acceptedTurquoiseColors, ...acceptedSteelBlueColors, ...acceptedPeruColors, ...acceptedChartreuseColors, 
+  ...acceptedKhakiColors, ...acceptedPlumColors, ...acceptedOliveDrabColors, ...acceptedCrimsonColors, ...acceptedDarkCyanColors, 
+  ...acceptedLightSalmonColors, ...acceptedMediumPurpleColors, ...acceptedLightGreenColors, ...acceptedSlateBlueColors, ...acceptedSandyBrownColors, 
+  ...acceptedDarkMagentaColors, ...acceptedMediumSeaGreenColors, ...acceptedRoyalBlueColors, ...acceptedMediumOrchidColors, ...acceptedLightCyanColors, 
+  ...acceptedMediumTurquoiseColors, ...acceptedGoldenrodColors, ...acceptedAquamarineColors, ...acceptedMediumSpringGreenColors, ...acceptedDarkOrangeColors, ...acceptedLightPinkColors
+];
 
 const dynamicStyles = {
   '.flag': {
@@ -172,8 +229,6 @@ const goToChooseStagePage = () => {
 }
 
 export default StagePage1;
-
-
 
 /*
 스테이지 1
