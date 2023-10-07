@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../Components/AxiosInstance';
+import './MyPage.css';
 
 function MyPage({ user, onLogout }) {
   console.log(user);
@@ -42,20 +42,22 @@ function MyPage({ user, onLogout }) {
 
   return (
     <div className="my-page-container">
+      <span className="mogako-title">MOGAKO FLAG</span>
       <h2>Welcome, {user}!</h2>  {/* 추후 닉네임 받아오는 것으로 변경 */}
       <p>Your User ID: {user}</p>
 
-      <Button variant="contained" color="primary" onClick={handleLogoutRequest}>
+      <button className="logoutBtn" onClick={handleLogoutRequest}>
         로그아웃
-      </Button>
+      </button>
 
-      <Button variant="contained" color="secondary" onClick={handleChangePasswordClick}>
+      <button className="changePasswordBtn" onClick={handleChangePasswordClick}>
         비밀번호 변경
-      </Button>
+      </button>
 
-      <Button variant="contained" onClick={handleGoBack}>
+      <button className="backBtn" onClick={handleGoBack}>
         돌아가기
-      </Button>
+      </button>
+
     </div>
   );
 }

@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -15,6 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../Components/AxiosInstance';  // 경로는 axiosInstance 파일 위치에 따라 조정
 
+const WorldWide = '/images/worldwide.jpeg';
 
 function Copyright(props) {
   return (
@@ -46,7 +45,7 @@ function LoginPage({ onLogin }) {
 
           // localStorage.setItem('UserId', response.data.userId);
           // localStorage.setItem('AccessToken', response.data.accessToken.value);
-          
+
           onLogin(true); // 로그인 성공시 true로 설정
           navigate('/choosestage');
         } else {
@@ -85,7 +84,7 @@ function LoginPage({ onLogin }) {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundImage: `url(${WorldWide})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -107,7 +106,7 @@ function LoginPage({ onLogin }) {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              MOGAKO FLAG
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -115,7 +114,7 @@ function LoginPage({ onLogin }) {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="이메일 주소"
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -127,17 +126,14 @@ function LoginPage({ onLogin }) {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="비밀번호"
                 type="password"
                 id="password"
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+              
               <Button
                 onClick={handleLogin}
                 type="submit"
@@ -145,17 +141,13 @@ function LoginPage({ onLogin }) {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                로그인하기
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
+                
                 <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
+                  <Link href="/join" variant="body2">
+                    {"회원가입하기"}
                   </Link>
                 </Grid>
               </Grid>

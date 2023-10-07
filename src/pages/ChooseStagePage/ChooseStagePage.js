@@ -1,6 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ChooseStagePage.css';
+import PersonIcon from '@mui/icons-material/Person';
+import './ChooseStagePage.css';
+
 
 // 이미지 경로를 public 디렉토리를 기반으로 수정
 const Stage1Flag = '/images/korea_flag.png';
@@ -26,8 +29,9 @@ function ChooseStagePage({ user }) {
     <div className="choose-stage-container">
       <div className="user-info-box">
       <span>MOGAKO FLAG</span>
-        <button onClick={() => navigate('/mypage')}>
-          My Page
+      <button onClick={() => navigate('/mypage')}>
+        <PersonIcon />
+          &nbsp;My Page
         </button>
       </div>
 

@@ -1,0 +1,59 @@
+body {
+  font-family: 'NanumSquareRound', sans-serif; 
+  background-color: #E3FDFD;
+  margin: 0;
+}
+
+.my-page-container {
+  max-width: 1500px; /* 컨테이너의 최대 너비 설정 */
+  padding: 20px;
+}
+
+.mogako-title {
+  display: block;
+  font-size: 30px;
+  margin-bottom: 30px;  /* 제목 아래에 간격 추가 */
+  font-weight: bold;
+}
+
+.my-page-container h2 {
+  font-size: 25px;
+}
+
+.my-page-container p {
+  font-size: 20px;
+}
+
+.logoutBtn, 
+.changePasswordBtn, 
+.backBtn {
+  width: 130px;
+  height: 40px;
+  margin-right: 10px; /* 버튼 사이의 간격 조정 */
+  border: none;  /* 테두리 제거 */
+  font-size: 15px;  /* 글자 크기 설정 */
+  box-sizing: border-box;  /* width와 height가 border와 padding을 포함한 크기가 되도록 */
+  transition: 0.3s;
+  font-family: 'Nanum Square Round', sans-serif; /* 글꼴 설정 */
+  border-radius: 4px;  /* 버튼 모서리 둥글게 */
+  cursor: pointer;  /* 마우스 포인터가 버튼 위에 있을 때 포인터 모양으로 */
+  outline: none;  /* 버튼 클릭 시 나타나는 외곽선 제거 */
+  position: relative;  /* 위치 설정을 상대적으로, 나중에 하위 요소에 대한 절대 위치 설정을 위해 */
+  align-items: center;  /* flex 아이템을 수직 중앙에 위치시킴 */
+  display: inline-flex;  /* 버튼 내부 아이템을 flex로 배열하되, 버튼 자체는 인라인 요소처럼 동작 */
+  justify-content: center;  /* 버튼 내부 아이템을 수평 중앙에 위치시킴 */
+  background-color: #A6E3E9; /* 기본 배경색 설정 */
+  color: rgba(0, 0, 0, 0.87); /* 기본 글씨색 설정 */
+}
+
+.logoutBtn:last-child, 
+.changePasswordBtn:last-child, 
+.backBtn:last-child {
+  margin-right: 0;  /* 마지막 버튼에는 오른쪽 마진 제거 */
+}
+
+.logoutBtn:hover, 
+.changePasswordBtn:hover, 
+.backBtn:hover {
+  background-color: #71C9CE;  /* 마우스 오버 시의 배경색 변경 */
+}

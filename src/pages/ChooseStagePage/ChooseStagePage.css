@@ -1,4 +1,5 @@
 body {
+  font-family: 'NanumSquareRound', sans-serif; 
   background-color: #E3FDFD;
   margin: 0;
 }
@@ -20,7 +21,7 @@ body {
 .user-info-box span {
   font-size: 30px;
   margin-top: 30px;
-  font-weight: bold; /* 굵은 폰트로 설정합니다 */
+  font-weight: bold;
 }
 
 
@@ -34,6 +35,11 @@ body {
   cursor: pointer;
   outline: none;
   transition: 0.3s;
+  display: flex;       /* flexbox를 사용 */
+  align-items: center; /* 자식 요소들을 수평 중앙에 정렬 */
+  justify-content: center; /* 자식 요소들을 수직 중앙에 정렬 */
+  font-family: 'Nanum Square Round', sans-serif; /* 나눔글꼴 적용 */
+  font-weight: bold;
 }
 
 .user-info-box button:hover {
@@ -63,8 +69,13 @@ body {
   background-color: #71C9CE; /* 마우스 오버시의 배경색 변경, 필요하면 조정하세요 */
 }
 
-
 .stage-button img {
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 40px; /* 국기 사진과 국가명 사이 간격 */
+}
+
+.stage-button div {
+  font-family: 'Nanum Square Round', sans-serif; /* 나눔글꼴 적용 */
+  font-size: 20px;
 }
