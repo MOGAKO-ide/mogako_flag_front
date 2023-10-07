@@ -179,6 +179,7 @@ button:hover {
 .sky,
 .water,
 .fire,
+.fire2,
 .earth {
   width: calc((var(--brick-size) / (var(--trigrams-location-width) + var(--brick-size))) * 100%);
   display: grid;
@@ -204,12 +205,14 @@ button:hover {
   grid-column: span 2;
 }
 
-.fire {
+.fire, .fire2 {
   grid-template-columns: repeat(2, 1fr);
 }
 
 .fire .brick:first-child,
-.fire .brick:last-child {
+.fire .brick:last-child,
+.fire2 .brick:first-child,
+.fire2 .brick:last-child {
   grid-column: span 2;
 }
 
@@ -221,4 +224,5 @@ button:hover {
 .water,
 .fire {
   transform: rotate(atan2(3, 2));
+  left: -30%;
 }
