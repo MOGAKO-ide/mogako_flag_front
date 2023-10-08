@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://64.110.89.251:8081' // 기본 요청 URL 설정
+    baseURL: 'http://64.110.89.251:8081/' // 기본 요청 URL 설정
 });
 
 // 응답 인터셉터: 로그인 성공 시 토큰을 localStorage에 저장
