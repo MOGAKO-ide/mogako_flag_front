@@ -22,6 +22,104 @@ const defaultTheme = createTheme();
 function JoinPage() {
   const navigate = useNavigate();
 
+  //유저네임, 닉네임, 이메일 중복체크용 state
+  const [usernameChecked, setUsernameChecked] = useState(false);
+  const [nicknameChecked, setNicknameChecked] = useState(false);
+  const [emailChecked, setEmailChecked] = useState(false);
+
+  const handleTempChange = (event) => {
+    const { name, value } = event.target;
+    setTempValues((prevState) => ({ ...prevState, [name]: value }));
+
+    // 값이 변경되면 상태를 초기화
+    switch (name) {
+      case "username":
+        setUsernameChecked(false);
+        break;
+      case "nickname":
+        setNicknameChecked(false);
+        break;
+      case "email":
+        setEmailChecked(false);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const checkDuplicate = (type) => {
+    const regex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/;
+
+    if (!tempValues[type]) {
+      alert(`${fieldDisplayNames[type]}를 입력해주세요.`);
+      return;
+    } else if (!regex.test(tempValues[type])) {
+      alert(`알파벳, 숫자, 특수문자만 입력해주세요.`);
+      return;
+    }
+
+    axiosInstance
+      .post(`api/users/valid/${type}`, { [type]: tempValues[type] })
+      .then((response) => {
+        if (response.status === 200) {
+          switch (type) {
+            case "username":
+              setUsernameChecked(true);
+              break;
+            case "nickname":
+              setNicknameChecked(true);
+              break;
+            case "email":
+              setEmailChecked(true);
+              break;
+            default:
+              break;
+          }
+        } else {
+          alert("서버 응답 오류. 다시 시도해주세요.");
+        }
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 400) {
+          alert("중복되었습니다.");
+        } else {
+          alert("서버 응답 오류. 다시 시도해주세요.");
+        }
+      });
+  };
+
+  const fieldDisplayNames = {
+    username: "아이디를",
+    nickname: "닉네임을",
+    email: "이메일을",
+  };
+
+  const iconButtonStyles = {
+    width: 100,
+    mr: 1,
+    backgroundColor: "white",
+    fontSize: "16px",
+    borderRadius: "3px",
+    Animation: "none",
+    "&:hover": {
+      mr: 1,
+      borderRadius: "3px",
+      // border: "0px solid dodgerblue",
+    },
+  };
+
+  //이메일 유효성 체크
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  const [isValidEmail, setIsValidEmail] = useState(false);
+
+  const handleEmailChange = (event) => {
+    const emailValue = event.target.value;
+    setTempValues((prevState) => ({ ...prevState, email: emailValue }));
+    setIsValidEmail(emailRegex.test(emailValue));
+  };
+
+  //////////여기까지 유저네임, 닉네임, 이메일
+
   const [buttonState, setButtonState] = useState({
     color: "default", //
     text: "중복확인", //
@@ -41,40 +139,10 @@ function JoinPage() {
     email: "",
   });
 
-  //upper텍스트
-  const [upperText, setUpperText] = useState(
-    "아이디, 닉네임, 이메일을 입력해주세요."
-  );
-
-  const handleTempChange = (event) => {
-    const { name, value } = event.target;
-    setTempValues((prevState) => ({ ...prevState, [name]: value }));
-  };
-
   const handleFinalizeInput = (event) => {
     const { name, value } = event.target;
     setUpperInfo((prevState) => ({ ...prevState, [name]: value }));
   };
-
-  useEffect(() => {
-    let newMessage = "";
-
-    if (newMessage === "") {
-      setUpperText("아이디, 닉네임, 이메일을 입력해주세요.");
-    }
-
-    //if문을 newMassage를 setUpperText를 수정하는게 아니라 붙이도록 수정! ! !
-    if (!upperInfo.username) {
-      newMessage = "(아이디를 입력하세요.)";
-    } else if (!upperInfo.nickname) {
-      newMessage = "(닉네임을 입력하세요.)";
-    } else if (!upperInfo.email || !upperInfo.email.includes("@")) {
-      newMessage = "(이메일을 정확하게 입력하세요.)";
-    } else {
-      newMessage = "입력되었습니다.";
-      setUpperText(newMessage);
-    }
-  }, [upperInfo]);
 
   //비밀번호관련
   const [password, setPassword] = useState(""); //비밀번호 state
@@ -199,7 +267,7 @@ function JoinPage() {
               <AssignmentIndIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              회원 정보를 입력하여 주세요.
+              JOINING PAGE
             </Typography>
             <Box
               component="form"
@@ -225,56 +293,19 @@ function JoinPage() {
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton
+                          sx={iconButtonStyles}
                           edge="end"
-                          color={buttonState.color}
-                          onClick={() => {
-                            axiosInstance
-                              .post("api/users/valid/username", {
-                                username: upperInfo.username,
-                              })
-                              .then((response) => {
-                                if (response.status === 200) {
-                                  console.log("200안에들어옴");
-                                  //버튼색상 파란색, 내용 확인완료! 로 바꾸기
-                                  setButtonState({
-                                    color: "primary",
-                                    text: "확인완료!",
-                                  });
-                                } else {
-                                  console.log("안들어옴 : than 내부");
-                                  alert("서버 응답 오류. 다시 시도해주세요.");
-                                }
-                              })
-                              .catch((error) => {
-                                //서버에 응답이 없거나 400같은거 나올때
-                                if (
-                                  error.response &&
-                                  error.response.status === 400
-                                ) {
-                                  console.log("안들어옴 : catch if 내부");
-
-                                  alert("중복되었습니다.");
-                                  setButtonState({
-                                    color: "default",
-                                    text: "중복확인",
-                                  });
-                                } else {
-                                  //다른 에러
-                                  console.log("안들어옴 : catch else 내부");
-
-                                  alert("서버 응답 오류. 다시 시도해주세요.");
-                                }
-                              });
-                          }}
+                          color={usernameChecked ? "primary" : "default"}
+                          onClick={() => checkDuplicate("username")}
                         >
-                          {buttonState.text}
+                          {usernameChecked ? "확인완료!" : "중복확인"}
                         </IconButton>
                       </InputAdornment>
                     ),
                   }}
                 />
                 <TextField
-                  margin="nickname"
+                  margin="dense"
                   autoComplete="nickname"
                   name="nickname"
                   required
@@ -284,6 +315,21 @@ function JoinPage() {
                   value={tempValues.nickname}
                   onChange={handleTempChange}
                   onBlur={handleFinalizeInput}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          disableRipple//안먹힘! 클릭효과 안사라짐!
+                          sx={iconButtonStyles}
+                          edge="end"
+                          color={nicknameChecked ? "primary" : "default"}
+                          onClick={() => checkDuplicate("nickname")}
+                        >
+                          {nicknameChecked ? "확인완료!" : "중복확인"}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
                 <TextField
                   margin="dense"
@@ -296,18 +342,21 @@ function JoinPage() {
                   value={tempValues.email}
                   onChange={handleTempChange}
                   onBlur={handleFinalizeInput}
-                />
-                <Typography
-                  variant="body2"
-                  gutterBottom
-                  component="div"
-                  sx={{
-                    mt: 0,
-                    color: upperText === "입력되었습니다." ? "blue" : "inherit",
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          sx={iconButtonStyles}
+                          edge="end"
+                          color={emailChecked ? "primary" : "default"}
+                          onClick={() => checkDuplicate("email")}
+                        >
+                          {emailChecked ? "확인완료!" : "중복확인"}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
                   }}
-                >
-                  - {upperText}
-                </Typography>
+                />
               </Box>
 
               <Box>
