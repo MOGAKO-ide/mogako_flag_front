@@ -10,28 +10,84 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import axiosInstance from "../../Components/AxiosInstance";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
 
 const defaultTheme = createTheme();
 
 function JoinPage() {
   const navigate = useNavigate();
 
-  //이름, 닉네임, 이메일 체크 state
-  const [joinInfoCheck, setJoinInfoCheck] = useState("가입 정보를 알맞게 입력해 주세요.")
-  //비밀번호 state
-  const [password, setPassword] = useState("");
-  //비밀번호 유효성 state
-  const [passwordState, setPasswordState] = useState("8자리 이상, 알파벳과 숫자만 입력 가능.(특수문자 제외)");
-  //비밀번호 재확인 state
-  const [passwordConfirmState, setPasswordConfirmState] = useState("동일한 비밀번호를 입력하여 주세요.");
-  //가입버튼 활성화 관리 state
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  //가입확인 알러트 state
-  const [showAlert, setShowAlert] = useState(false);
+  const [buttonState, setButtonState] = useState({
+    color: "default", //
+    text: "중복확인", //
+  });
+
+  //유저네임, 닉네임, 이메일 state
+  const [upperInfo, setUpperInfo] = useState({
+    username: "",
+    nickname: "",
+    email: "",
+  });
+
+  //사용자에게 보이게하는부분
+  const [tempValues, setTempValues] = useState({
+    username: "",
+    nickname: "",
+    email: "",
+  });
+
+  //upper텍스트
+  const [upperText, setUpperText] = useState(
+    "아이디, 닉네임, 이메일을 입력해주세요."
+  );
+
+  const handleTempChange = (event) => {
+    const { name, value } = event.target;
+    setTempValues((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleFinalizeInput = (event) => {
+    const { name, value } = event.target;
+    setUpperInfo((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  useEffect(() => {
+    let newMessage = "";
+
+    if (newMessage === "") {
+      setUpperText("아이디, 닉네임, 이메일을 입력해주세요.");
+    }
+
+    //if문을 newMassage를 setUpperText를 수정하는게 아니라 붙이도록 수정! ! !
+    if (!upperInfo.username) {
+      newMessage = "(아이디를 입력하세요.)";
+    } else if (!upperInfo.nickname) {
+      newMessage = "(닉네임을 입력하세요.)";
+    } else if (!upperInfo.email || !upperInfo.email.includes("@")) {
+      newMessage = "(이메일을 정확하게 입력하세요.)";
+    } else {
+      newMessage = "입력되었습니다.";
+      setUpperText(newMessage);
+    }
+  }, [upperInfo]);
+
+  //비밀번호관련
+  const [password, setPassword] = useState(""); //비밀번호 state
+  const [passwordState, setPasswordState] = useState(
+    "8자리 이상, 알파벳과 숫자만 입력 가능.(특수문자 제외)"
+  ); //비밀번호 유효성 state
+  const [passwordConfirmState, setPasswordConfirmState] = useState(
+    "동일한 비밀번호를 입력하여 주세요."
+  ); //비밀번호 재확인 state
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true); //가입버튼 활성화 관리 state
+
+  //가입 완료 알러트 state
+  const [showJoinAlert, setShowJoinAlert] = useState(false);
 
   //가입완료 서밋 함수
   const handleSubmit = (event) => {
@@ -47,35 +103,32 @@ function JoinPage() {
       nickname: data.get("nickname"),
       email: data.get("email"),
       password: data.get("password"),
-      passwordConfirm: data.get("passwordConfirm"),
     });
 
     //조건문 달아서 가입완료여부 확인하고 가입완료 -> 가입 불가 나누기
     axiosInstance
       .post("api/users", { username, nickname, email, password })
-      .than((response) => {
+      .then((response) => {
         //응답이 200이면 회원가입, 로그인페이지로 이동
         if (response.status === 200) {
           //가입 완료 메시지 알러트
-          setShowAlert(true);
+          setShowJoinAlert(true);
           // 알림 표시 후 3초 후에 메인화면으로 이동
           setTimeout(() => {
             navigate("/");
           }, 3000);
         } else {
-          setJoinInfoCheck(handleJoinInfo);
+          alert("회원가입실패");
+        }
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 400) {
+          alert("잘못된 정보를 입력하였습니다.");
+        } else {
+          alert("문제가 발생하였습니다.");
         }
       });
   };
-
-const handleJoinInfo = (nameValue, nicknameValue, emailValue ) => {
-  const newUsernameValue = nameValue;
-  const newNicknameValue = nicknameValue;
-  const newEmailValue = emailValue;
-
-  if (newUsernameValue !== "" && )
-
-}
 
   //비밀번호 유효성 검사함수
   const handlePasswordCheck = (event) => {
@@ -164,7 +217,61 @@ const handleJoinInfo = (nameValue, nicknameValue, emailValue ) => {
                   required
                   fullWidth
                   id="username"
-                  label="User Name"
+                  label="User ID"
+                  value={tempValues.username}
+                  onChange={handleTempChange}
+                  onBlur={handleFinalizeInput}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          edge="end"
+                          color={buttonState.color}
+                          onClick={() => {
+                            axiosInstance
+                              .post("api/users/valid/username", {
+                                username: upperInfo.username,
+                              })
+                              .then((response) => {
+                                if (response.status === 200) {
+                                  console.log("200안에들어옴");
+                                  //버튼색상 파란색, 내용 확인완료! 로 바꾸기
+                                  setButtonState({
+                                    color: "primary",
+                                    text: "확인완료!",
+                                  });
+                                } else {
+                                  console.log("안들어옴 : than 내부");
+                                  alert("서버 응답 오류. 다시 시도해주세요.");
+                                }
+                              })
+                              .catch((error) => {
+                                //서버에 응답이 없거나 400같은거 나올때
+                                if (
+                                  error.response &&
+                                  error.response.status === 400
+                                ) {
+                                  console.log("안들어옴 : catch if 내부");
+
+                                  alert("중복되었습니다.");
+                                  setButtonState({
+                                    color: "default",
+                                    text: "중복확인",
+                                  });
+                                } else {
+                                  //다른 에러
+                                  console.log("안들어옴 : catch else 내부");
+
+                                  alert("서버 응답 오류. 다시 시도해주세요.");
+                                }
+                              });
+                          }}
+                        >
+                          {buttonState.text}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
                 <TextField
                   margin="nickname"
@@ -174,6 +281,9 @@ const handleJoinInfo = (nameValue, nicknameValue, emailValue ) => {
                   fullWidth
                   id="nickname"
                   label="Nick Name"
+                  value={tempValues.nickname}
+                  onChange={handleTempChange}
+                  onBlur={handleFinalizeInput}
                 />
                 <TextField
                   margin="dense"
@@ -183,21 +293,20 @@ const handleJoinInfo = (nameValue, nicknameValue, emailValue ) => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={tempValues.email}
+                  onChange={handleTempChange}
+                  onBlur={handleFinalizeInput}
                 />
-                               
-                 <Typography
+                <Typography
                   variant="body2"
                   gutterBottom
                   component="div"
                   sx={{
                     mt: 0,
-                    color:
-                    setJoinInfoCheck === "비밀번호 확인완료."
-                        ? "blue"
-                        : "inherit",
+                    color: upperText === "입력되었습니다." ? "blue" : "inherit",
                   }}
                 >
-                 - {joinInfoCheck}
+                  - {upperText}
                 </Typography>
               </Box>
 
@@ -267,8 +376,8 @@ const handleJoinInfo = (nameValue, nicknameValue, emailValue ) => {
         </Grid>
       </Grid>
 
-      {/* 알림 표시 조건 추가 */}
-      {showAlert && (
+      {/* 가입완료알러트 */}
+      {showJoinAlert && (
         <Stack
           sx={{
             width: "100%",
