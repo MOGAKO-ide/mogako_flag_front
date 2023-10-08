@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://64.110.89.251:8081/' // 기본 요청 URL 설정
+    baseURL: 'http://64.110.89.251:8081' // 기본 요청 URL 설정
 });
 
 // 응답 인터셉터: 로그인 성공 시 토큰을 localStorage에 저장
@@ -10,7 +10,7 @@ instance.interceptors.response.use(response => {
     console.log('Response:', response); // 여기에 응답을 출력합니다.
     
     // 로그인 요청에 대한 응답인 경우
-    if (response.config.url === 'api/auth/login' && response.data && response.data.accessToken) {
+    if (response.config.url === '/api/auth/login' && response.data && response.data.accessToken) {
         // 기존 토큰 삭제
         localStorage.removeItem('AccessToken');
         // 새 토큰 저장
