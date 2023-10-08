@@ -187,7 +187,7 @@ const goToChooseStagePage = () => {
           <br /><br />
           <div className="scoreContainer">
             <p>완성도: {score}점</p>
-            {score === 100 && <button onClick={goToNextLevel}>다음 난이도</button>}
+            {score === 100 && <button2 onClick={goToNextLevel}>다음 난이도</button2>}
           </div>
         </div>
       </div>

@@ -233,7 +233,7 @@ const goToChooseStagePage = () => {
           <br /><br />
           <div className="scoreContainer">
             <p>완성도: {score}점</p>
-            {score === 100 && <button onClick={goToNextLevel}>대한민국 완료!</button>}
+            {score === 100 && <button3 onClick={goToNextLevel}>대한민국 완료!</button3>}
           </div>
         </div>
       </div>
