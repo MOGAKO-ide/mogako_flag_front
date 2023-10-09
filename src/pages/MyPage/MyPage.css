@@ -26,7 +26,8 @@ body {
 
 .logoutBtn, 
 .changePasswordBtn, 
-.backBtn {
+.backBtn,
+.resetBtn {
   width: 130px;
   height: 40px;
   margin-right: 10px; /* 버튼 사이의 간격 조정 */
@@ -48,12 +49,14 @@ body {
 
 .logoutBtn:last-child, 
 .changePasswordBtn:last-child, 
-.backBtn:last-child {
+.backBtn:last-child,
+.resetBtn:last-child {
   margin-right: 0;  /* 마지막 버튼에는 오른쪽 마진 제거 */
 }
 
 .logoutBtn:hover, 
 .changePasswordBtn:hover, 
-.backBtn:hover {
+.backBtn:hover,
+.resetBtn:hover {
   background-color: #71C9CE;  /* 마우스 오버 시의 배경색 변경 */
 }

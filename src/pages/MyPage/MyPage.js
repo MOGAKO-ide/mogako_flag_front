@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../Components/AxiosInstance';
 import './MyPage.css';
 
 function MyPage({ user, onLogout }) {
-  console.log(user);
   const navigate = useNavigate();
-
   // 페이지 이동 핸들러 함수 정의
   // 반응형 고려하면 별도의 핸들러 함수를 정의하는 방식이 더 유용하고 확장성 좋음
 
@@ -41,6 +39,15 @@ function MyPage({ user, onLogout }) {
     navigate('/choosestage');
   };
 
+  const handleReset = () => {
+    const userId = localStorage.getItem('userId');
+    axiosInstance.post(`/api/users/${userId}/flags/reset`).then(response => {
+      console.log(response);
+    }, error => {
+      console.log(error);
+    })
+  }
+
   return (
     <div className="my-page-container">
       <span className="mogako-title">MOGAKO FLAG</span>
@@ -59,8 +66,8 @@ function MyPage({ user, onLogout }) {
         돌아가기
       </button>
 
-      <button className="resetBtn">
-        클리어 기록 초기화하기
+      <button className="resetBtn" onClick={handleReset}>
+        기록 초기화
       </button>
       {/* 이부분 추후 api 구현되면 클리어 기록 전송된 것 초기화 할 수 있게 로직 수정 */}
 

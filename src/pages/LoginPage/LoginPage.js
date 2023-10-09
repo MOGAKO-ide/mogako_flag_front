@@ -41,9 +41,9 @@ function LoginPage({ onLogin }) {
       .then(response => {
         if (response.status === 200) {
           console.log(response.data);
-          const userId = response.data.userId;
+          const userId = response.data.userInfo.userId;
 
-          localStorage.setItem('userId', response.data.userId);
+          localStorage.setItem('userId', response.data.userInfo.userId);
           // localStorage.setItem('AccessToken', response.data.accessToken.value);
 
           onLogin(true); // 로그인 성공시 true로 설정
