@@ -5,16 +5,23 @@ const instance = axios.create({
 });
 
 // 응답 인터셉터: 로그인 성공 시 토큰을 localStorage에 저장
+// 여기 토큰설정때문에 팅기는 가능성이 발생할 수 있음
 instance.interceptors.response.use(response => {
     console.log('Response:', response); // 여기에 응답을 출력합니다.
     
     // 로그인 요청에 대한 응답인 경우
     if (response.config.url === 'api/auth/login' && response.data && response.data.accessToken) {
+
+
         // 기존 토큰 삭제
         localStorage.removeItem('AccessToken');
         // 새 토큰 저장
         localStorage.setItem('AccessToken', response.data.accessToken.value);
     }
+
+
+    // 토큰 부분을 빼고, 로그인 부분에서 성공하면 토큰을 넣어주는 식으로 변경하는게 나을 수 잇다
+// 토큰 없애는건 로그아웃
 
     return response;
 }, error => {
@@ -30,8 +37,6 @@ instance.interceptors.response.use(response => {
         }
     }
 
-    // 여기에 401관련 에러 추가(특정 api 호출 부분)
-    
     return Promise.reject(error);
 });
 
