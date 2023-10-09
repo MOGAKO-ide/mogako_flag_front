@@ -77,7 +77,7 @@ function ChangePasswordPage({ user, onChangePassword }) {
 
   return (
     <div className="my-page-container">
-        <span className="mogako-title">MOGAKO FLAG</span>  {/* 텍스트 추가 */}
+        <span className="mogako-title">MOGAKO FLAG</span> 
         <div className="password-fields">
             <TextField
                 label="새로운 비밀번호"
@@ -88,6 +88,7 @@ function ChangePasswordPage({ user, onChangePassword }) {
                     setNewPassword(e.target.value);
                     handlePasswordCheck(e);
                 }}
+                InputLabelProps={{ shrink: true }}
             />
             <div>{passwordState}</div>
             <TextField
@@ -99,6 +100,7 @@ function ChangePasswordPage({ user, onChangePassword }) {
                     setConfirmPassword(e.target.value);
                     handlePasswordConfirm(e);
                 }}
+                InputLabelProps={{ shrink: true }}
             />
             <div>{passwordConfirmState}</div>
         </div>
