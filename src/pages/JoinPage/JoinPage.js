@@ -183,7 +183,7 @@ function JoinPage() {
           setShowJoinAlert(true);
           // 알림 표시 후 3초 후에 메인화면으로 이동
           setTimeout(() => {
-            navigate("/");
+            navigate("/main");
           }, 3000);
         } else {
           alert("회원가입실패");
@@ -233,40 +233,30 @@ function JoinPage() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid
+        container
+        component="main"
+        sx={{
+          height: "60vh",
+          my: 0,
+          mx: 0,
+        }}
+      >
         <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage:
-              "url(https://source.unsplash.com/random?wallpapers)",
-            backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <Box
+        
+        <Grid item elevation={6} square>
+        <Box
             sx={{
-              my: 8,
-              mx: 4,
+              mt: 0,
+              mb: 4,
+              mx: 2,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: "gray" }}>
-              <AssignmentIndIcon />
-            </Avatar>
+              maxWidth: 350,
+            }} >
             <Typography component="h1" variant="h5">
-              JOINING PAGE
+              회원 정보를 기입하세요.
             </Typography>
             <Box
               component="form"
@@ -318,7 +308,7 @@ function JoinPage() {
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton
-                          disableRipple//안먹힘! 클릭효과 안사라짐!
+                          disableRipple //안먹힘! 클릭효과 안사라짐!
                           sx={iconButtonStyles}
                           edge="end"
                           color={nicknameChecked ? "primary" : "default"}
@@ -421,24 +411,23 @@ function JoinPage() {
               </Box>
             </Box>
           </Box>
+          {/* 가입완료알러트 */}
+          {showJoinAlert && (
+            <Stack
+              sx={{
+                width: "100%",
+                position: "absolute",
+                top: 10,
+                left: "50%",
+                transform: "translateX(-50%)",
+              }}
+              spacing={2}
+            >
+              <Alert severity="success">가입이 완료되었습니다.</Alert>
+            </Stack>
+          )}
         </Grid>
       </Grid>
-
-      {/* 가입완료알러트 */}
-      {showJoinAlert && (
-        <Stack
-          sx={{
-            width: "100%",
-            position: "absolute",
-            top: 10,
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
-          spacing={2}
-        >
-          <Alert severity="success">가입이 완료되었습니다.</Alert>
-        </Stack>
-      )}
     </ThemeProvider>
   );
 }

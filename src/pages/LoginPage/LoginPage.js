@@ -1,71 +1,54 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../Components/AxiosInstance';  // 경로는 axiosInstance 파일 위치에 따라 조정
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Muilink from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useNavigate, Link } from "react-router-dom";
 
-const WorldWide = '/images/worldwide.jpeg';
+import axiosInstance from "../../Components/AxiosInstance"; // 경로는 axiosInstance 파일 위치에 따라 조정
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+const WorldWide = "/images/worldwide.jpeg";
 
 const defaultTheme = createTheme();
 
 function LoginPage({ onLogin }) {
   const navigate = useNavigate();
 
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   const handleLogin = () => {
-    axiosInstance.post('api/auth/login', { username, password })
-      .then(response => {
+    axiosInstance
+      .post("api/auth/login", { username, password })
+      .then((response) => {
         if (response.status === 200) {
           console.log(response.data);
           const userId = response.data.userInfo.userId;
 
-          localStorage.setItem('userId', userId);
+          localStorage.setItem("userId", response.data.userInfo.userId);
+          // localStorage.setItem('AccessToken', response.data.accessToken.value);
 
-          // 토큰이 localStorage에 저장되었는지를 기반으로 로그인 상태 변경
-          if (localStorage.getItem('AccessToken')) {
-            onLogin(true);
-          }
-          navigate('/choosestage');
+          onLogin(true); // 로그인 성공시 true로 설정
+          navigate("/choosestage");
         } else {
-          alert('로그인에 실패하였습니다.');
+          alert("로그인에 실패하였습니다.");
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Login error:", error);
         if (error.response && error.response.status === 400) {
-          alert('잘못된 정보를 입력하였습니다.');
+          alert("잘못된 정보를 입력하였습니다.");
         } else {
-          alert('로그인 중 문제가 발생하였습니다.');
+          alert("로그인 중 문제가 발생하였습니다.");
         }
       });
-}
-
-  
-
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -73,45 +56,42 @@ function LoginPage({ onLogin }) {
       email: username,
       password: password,
     });
-
-    
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid
+        container
+        component="main"
+        sx={{
+          height: "60vh",
+          my: 0,
+          mx: 0,
+        }}
+      >
         <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage: `url(${WorldWide})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item elevation={6} square>
           <Box
             sx={{
-              my: 8,
-              mx: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+              mt: 0,
+              mb: 4,
+              mx: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              maxWidth: 350,
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              MOGAKO FLAG
+            <Typography component="h1" variant="h6" sx={{ mb: 4 }}>
+              방문을 환영합니다!
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 1 }}
+            >
               <TextField
                 margin="normal"
                 required
@@ -136,25 +116,23 @@ function LoginPage({ onLogin }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              
+
               <Button
                 onClick={handleLogin}
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 1 }}
               >
                 로그인하기
               </Button>
-              <Grid container>
-                
+              <Grid container justifyContent="center" alignItems="center">
                 <Grid item>
-                  <Link href="/join" variant="body2">
-                    {"회원가입하기"}
+                  <Link to="join" variant="body2">
+                    {"If you don't have an ID, please click here!"}
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>
