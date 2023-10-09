@@ -71,8 +71,11 @@ function StagePage1() {
 
   // 1. 데이터를 서버에 보내는 함수 정의
   const sendScoreToBackend = async () => {
+    // userId를 localStorage에서 가져옵니다.
+    const userId = localStorage.getItem("userId");
+
     try {
-        const response = await axiosInstance.post('api/users/868017d8-cc62-41be-8e16-3deb64ba1431/flags', {flagCode:'KR1' });
+        const response = await axiosInstance.post(`api/users/${userId}/flags`, {flagCode:'KR1' });
         console.log(response.data);
     } catch (error) {
         console.error('Error sending score:', error);
