@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,15 @@ function ChangePasswordPage({ user, onChangePassword }) {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  // 로그인 상태 확인
+  useEffect(() => {
+    const token = localStorage.getItem('AccessToken');
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      navigate('/'); // 로그인 페이지로 리다이렉트
+    }
+  }, [navigate]);
 
   const handlePasswordChange = () => {
     const userId = localStorage.getItem('userId');

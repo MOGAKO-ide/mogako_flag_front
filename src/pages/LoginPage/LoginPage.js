@@ -44,9 +44,11 @@ function LoginPage({ onLogin }) {
           const userId = response.data.userInfo.userId;
 
           localStorage.setItem('userId', response.data.userInfo.userId);
-          // localStorage.setItem('AccessToken', response.data.accessToken.value);
 
-          onLogin(true); // 로그인 성공시 true로 설정
+          // 토큰이 localStorage에 저장되었는지를 기반으로 로그인 상태 변경
+          if (localStorage.getItem('AccessToken')) {
+            onLogin(true);
+          }
           navigate('/choosestage');
         } else {
           alert('로그인에 실패하였습니다.');
@@ -60,7 +62,8 @@ function LoginPage({ onLogin }) {
           alert('로그인 중 문제가 발생하였습니다.');
         }
       });
-  }
+}
+
   
 
 

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/LoginPage/LoginPage';
 import Join from './pages/JoinPage/JoinPage';
-
 import MyPage from './pages/MyPage/MyPage';
 import ChangePasswordPage from './pages/ChangePasswordPage/ChangePasswordPage';
 import ChooseStage from './pages/ChooseStagePage/ChooseStagePage';
@@ -12,7 +11,8 @@ import StagePage3 from './pages/StagePage/StagePage3';
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태만 확인
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('AccessToken'));
+
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -21,11 +21,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        
-        
         <Route path="/join" element={<Join />} />
-
-
         <Route path="/" element={<Login onLogin={setIsLoggedIn} />} />
         <Route path="/mypage" element={<MyPage isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
         <Route path="/changepassword" element={<ChangePasswordPage isLoggedIn={isLoggedIn} />} />

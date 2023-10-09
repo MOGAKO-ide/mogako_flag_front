@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../Components/AxiosInstance';
 import './MyPage.css';
@@ -8,6 +8,15 @@ function MyPage({ user, onLogout }) {
   // 페이지 이동 핸들러 함수 정의
   // 반응형 고려하면 별도의 핸들러 함수를 정의하는 방식이 더 유용하고 확장성 좋음
 
+  // 로그인 상태 확인
+  useEffect(() => {
+    const token = localStorage.getItem('AccessToken');
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      navigate('/'); // 로그인 페이지로 리다이렉트
+    }
+  }, [navigate]);
+  
   const handleLogoutRequest = async () => {
     try {
       await axiosInstance.post('api/auth/logout'); // 로그아웃 API 경로
