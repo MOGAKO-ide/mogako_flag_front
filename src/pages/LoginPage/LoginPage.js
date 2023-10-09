@@ -43,7 +43,7 @@ function LoginPage({ onLogin }) {
           console.log(response.data);
           const userId = response.data.userId;
 
-          // localStorage.setItem('UserId', response.data.userId);
+          localStorage.setItem('userId', response.data.userId);
           // localStorage.setItem('AccessToken', response.data.accessToken.value);
 
           onLogin(true); // 로그인 성공시 true로 설정

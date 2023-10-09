@@ -14,7 +14,8 @@ function MyPage({ user, onLogout }) {
     try {
       await axiosInstance.post('api/auth/logout'); // 로그아웃 API 경로
   
-      localStorage.removeItem('AccessToken'); // 토큰 삭제
+      localStorage.removeItem('AccessToken'); // 로컬 토큰 삭제
+      localStorage.removeItem('userId'); // 로컬 유저아이디 삭제
       onLogout();  // App.js의 handleLogout 함수를 호출하여 상태를 초기화
       navigate('/'); // 로그아웃 후, 루트 홈페이지(Login)로 이동
   
@@ -57,6 +58,11 @@ function MyPage({ user, onLogout }) {
       <button className="backBtn" onClick={handleGoBack}>
         돌아가기
       </button>
+
+      <button className="resetBtn">
+        클리어 기록 초기화하기
+      </button>
+      {/* 이부분 추후 api 구현되면 클리어 기록 전송된 것 초기화 할 수 있게 로직 수정 */}
 
     </div>
   );
