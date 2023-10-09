@@ -11,12 +11,14 @@ function ChangePasswordPage({ user, onChangePassword }) {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handlePasswordChange = () => {
+    const userId = localStorage.getItem('userId');
     if (newPassword === confirmPassword) {
-      axiosInstance.put(`/api/users/66cba1ab-c7a3-4c06-a1db-9be83da2e818`, { // 유저 정보를 이용하여 URL을 수정
+      axiosInstance.put(`/api/users/${userId}`, { // 유저 정보를 이용하여 URL을 수정
         beforePassword: currentPassword,
         afterPassword: newPassword
       }).then(response => {
         alert('비밀번호 변경 성공!');
+        navigate('/mypage')
       }).catch(error => {
         if (error.response && error.response.status === 400) {
           alert('이전 패스워드가 일치하지 않습니다.');
