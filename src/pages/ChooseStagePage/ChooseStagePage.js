@@ -78,7 +78,7 @@ function ChooseStagePage({ user }) {
             { isImpleted[stage] === true ? (
               <div>진행도: { (completedStages / totalStages * 100).toFixed(2)  } %</div>
             ) : (
-              <div>진행도: 0%</div>
+              <div>준비중 입니다</div>
             )}
           </button>
         ))}

@@ -3,6 +3,8 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../Components/AxiosInstance';
+import './ChangePasswordPage.css';
+
 
 function ChangePasswordPage({ user, onChangePassword }) {
   const navigate = useNavigate();
@@ -46,36 +48,39 @@ function ChangePasswordPage({ user, onChangePassword }) {
   };
 
   return (
-    <div className="change-password-container">
-      <TextField
-        label="Current Password"
-        type="password"
-        fullWidth
-        value={currentPassword}
-        onChange={(e) => setCurrentPassword(e.target.value)}
-      />
-      <TextField
-        label="New Password"
-        type="password"
-        fullWidth
-        value={newPassword}
-        onChange={(e) => setNewPassword(e.target.value)}
-      />
-      <TextField
-        label="Confirm New Password"
-        type="password"
-        fullWidth
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-      <Button variant="contained" color="primary" onClick={handlePasswordChange}>
-        Change Password
-      </Button>
-      <Button variant="contained" color="secondary" onClick={handleCancel}>
-        Cancel
-      </Button>
+    <div className="my-page-container">
+        <span className="mogako-title">MOGAKO FLAG</span>  {/* 텍스트 추가 */}
+        <div className="password-fields">
+            <TextField
+                label="현재 비밀번호"
+                type="password"
+                fullWidth
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+            />
+            <TextField
+                label="새로운 비밀번호"
+                type="password"
+                fullWidth
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <TextField
+                label="비밀번호 확인"
+                type="password"
+                fullWidth
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+        </div>
+        <button className="changePasswordBtn" onClick={handlePasswordChange}>
+            비밀번호 변경
+        </button>
+        <button className="backBtn" onClick={handleCancel}>
+            취소하기
+        </button>
     </div>
-  );
+);
 }
 
 export default ChangePasswordPage;
