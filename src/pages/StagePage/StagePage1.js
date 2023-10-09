@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './StagePage1.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import HomeIcon from '@mui/icons-material/Home';
+import axiosInstance from '../../Components/AxiosInstance';
+
 
 /* 48번 째 줄의 문제를 해결하기 위해 컴포넌트 최상단에 재 정의  */
 const acceptedWhiteColors = ['white', '#fff', '#ffffff', '#FFF', '#FFFFFF'];
@@ -65,6 +67,18 @@ function StagePage1() {
   const [taegukRedColor, setTaegukRedColor] = useState('');
   const [taegukBlueColor, setTaegukBlueColor] = useState('');
   const [score, setScore] = useState(0);
+  
+
+  // 1. 데이터를 서버에 보내는 함수 정의
+  const sendScoreToBackend = async () => {
+    try {
+        const response = await axiosInstance.post('api/users/6b68642f-c5a9-4c09-9151-1474d6a896aa/flags', {flagCode:'KR1' });
+        console.log(response.data);
+    } catch (error) {
+        console.error('Error sending score:', error);
+    }
+  }
+  
 
 
   // 정답 부분 --- 여러가지의 정답이 있어 아래의 코드들은 전부 정답으로 처리 했습니다. 
@@ -76,6 +90,11 @@ function StagePage1() {
     if (acceptedBlueColors.includes(taegukBlueColor) && taegukBlueColor.length === acceptedBlueColors.find(color => color === taegukBlueColor).length) tempScore += 34;
   
     setScore(tempScore);
+
+    if (tempScore === 100) {
+      sendScoreToBackend();
+  }
+  
   }, [flagBgColor, taegukRedColor, taegukBlueColor]);
   // 여기까지 
 
