@@ -43,7 +43,7 @@ function LoginPage({ onLogin }) {
           console.log(response.data);
           const userId = response.data.userInfo.userId;
 
-          localStorage.setItem('userId', response.data.userInfo.userId);
+          localStorage.setItem('userId', userId);
 
           // 토큰이 localStorage에 저장되었는지를 기반으로 로그인 상태 변경
           if (localStorage.getItem('AccessToken')) {
