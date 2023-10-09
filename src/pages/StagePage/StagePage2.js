@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './StagePage2.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import HomeIcon from '@mui/icons-material/Home';
+import axiosInstance from '../../Components/AxiosInstance';
+
 
 function StagePage2() 
 {
@@ -17,6 +19,14 @@ function StagePage2()
     setTaegukBlueTranslate(value);
   }
   
+  const sendScoreToBackend = async () => {
+    try {
+        const response = await axiosInstance.post('api/users/6b68642f-c5a9-4c09-9151-1474d6a896aa/flags', {flagCode:'KR2' });
+        console.log(response.data);
+    } catch (error) {
+        console.error('Error sending score:', error);
+    }
+  }
 
 
   /* 점수 계산하는 곳 아래의 답은 다 정답으로 처리 하니까 추가는 해도 삭제는 하지말아주세요! - 이정원 */
@@ -44,6 +54,11 @@ function StagePage2()
     
     ) tempScore += 34;
     setScore(tempScore);
+
+    if (tempScore === 100) {
+      sendScoreToBackend();
+  }
+
 }, [flagBgColor, taegukRedTranslate, taegukBlueTranslate]);
 
 /* 여기까지 점수 계산하는 코드 입니다! */
@@ -187,7 +202,7 @@ const goToChooseStagePage = () => {
           <br /><br />
           <div className="scoreContainer">
             <p>완성도: {score}점</p>
-            {score === 100 && <button2 onClick={goToNextLevel}>다음 난이도</button2>}
+            {score === 100 && <button-2 onClick={goToNextLevel}>다음 난이도</button-2>}
           </div>
         </div>
       </div>

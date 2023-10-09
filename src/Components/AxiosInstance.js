@@ -19,10 +19,6 @@ instance.interceptors.response.use(response => {
         localStorage.setItem('AccessToken', response.data.accessToken.value);
     }
 
-
-    // 토큰 부분을 빼고, 로그인 부분에서 성공하면 토큰을 넣어주는 식으로 변경하는게 나을 수 잇다
-// 토큰 없애는건 로그아웃
-
     return response;
 }, error => {
     console.error('Response Error:', error); // 에러 발생시 콘솔에 에러 출력

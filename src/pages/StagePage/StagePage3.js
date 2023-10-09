@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import './StagePage3.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import HomeIcon from '@mui/icons-material/Home';
+import axiosInstance from '../../Components/AxiosInstance';
+
+
+
 
 function StagePage3() 
 {
@@ -17,6 +21,14 @@ function StagePage3()
  const [earthOrder, setEarthOrder] = useState(1);
 
 
+ const sendScoreToBackend = async () => {
+    try {
+        const response = await axiosInstance.post('api/users/6b68642f-c5a9-4c09-9151-1474d6a896aa/flags', {flagCode:'KR3' });
+        console.log(response.data);
+    } catch (error) {
+        console.error('Error sending score:', error);
+    }
+  }
 
   // 값이 정확한지 확인하고 점수를 업데이트 해주는 유저 이펙트 //
   useEffect(() => {
@@ -27,6 +39,11 @@ function StagePage3()
     if (fireOrder === 1) tempScore += 34; // '화'와 '토'의 순서가 올바를 때 추가 점수
 
     setScore(tempScore);
+
+    if (tempScore === 100) {
+        sendScoreToBackend();
+    }
+    
 }, [skyOpacity, waterRotation, transformCorrect, fireOrder, ]); 
 
   
@@ -233,7 +250,7 @@ const goToChooseStagePage = () => {
           <br /><br />
           <div className="scoreContainer">
             <p>완성도: {score}점</p>
-            {score === 100 && <button3 onClick={goToNextLevel}>대한민국 완료!</button3>}
+            {score === 100 && <button-3 onClick={goToNextLevel}>대한민국 완료!</button-3>}
           </div>
         </div>
       </div>

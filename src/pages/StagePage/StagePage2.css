@@ -126,7 +126,7 @@
 }
 
 
-button2 {
+button-2 {
   margin-top: 10px;
   padding: 10px 20px;
   background-color: #A6E3E9;
@@ -137,7 +137,7 @@ button2 {
   transition: background-color 0.3s;
 }
 
-button:hover {
+button-2:hover {
   background-color: #89c2d9;
 }
 

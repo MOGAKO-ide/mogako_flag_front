@@ -70,7 +70,7 @@
 }
 
 
-button3 {
+button-3 {
   margin-top: 10px;
   padding: 10px 20px;
   background-color: #A6E3E9;
@@ -81,7 +81,7 @@ button3 {
   transition: background-color 0.3s;
 }
 
-button:hover {
+button-3:hover {
   background-color: #89c2d9;
 }
 
