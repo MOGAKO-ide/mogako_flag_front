@@ -21,7 +21,7 @@ function StagePage2()
   
   const sendScoreToBackend = async () => {
     try {
-        const response = await axiosInstance.post('api/users/6b68642f-c5a9-4c09-9151-1474d6a896aa/flags', {flagCode:'KR2' });
+        const response = await axiosInstance.post('api/users/868017d8-cc62-41be-8e16-3deb64ba1431/flags', {flagCode:'KR2' });
         console.log(response.data);
     } catch (error) {
         console.error('Error sending score:', error);

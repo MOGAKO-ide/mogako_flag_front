@@ -72,7 +72,7 @@ function StagePage1() {
   // 1. 데이터를 서버에 보내는 함수 정의
   const sendScoreToBackend = async () => {
     try {
-        const response = await axiosInstance.post('api/users/6b68642f-c5a9-4c09-9151-1474d6a896aa/flags', {flagCode:'KR1' });
+        const response = await axiosInstance.post('api/users/868017d8-cc62-41be-8e16-3deb64ba1431/flags', {flagCode:'KR1' });
         console.log(response.data);
     } catch (error) {
         console.error('Error sending score:', error);
