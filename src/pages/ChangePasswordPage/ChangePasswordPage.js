@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../Components/AxiosInstance';
@@ -11,15 +10,44 @@ function ChangePasswordPage({ user, onChangePassword }) {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
-  // 로그인 상태 확인
+  const [passwordState, setPasswordState] = useState('8자리 이상, 알파벳과 숫자만 입력 가능.(특수문자 제외)');
+  const [passwordConfirmState, setPasswordConfirmState] = useState('동일한 비밀번호를 입력하여 주세요.');
+  
   useEffect(() => {
     const token = localStorage.getItem('AccessToken');
     if (!token) {
       alert('로그인이 필요합니다.');
-      navigate('/'); // 로그인 페이지로 리다이렉트
+      navigate('/');
     }
   }, [navigate]);
+
+  const handlePasswordCheck = (event) => {
+    const newPassword = event.target.value;
+    setNewPassword(newPassword);
+
+    if (
+      newPassword === "" ||
+      newPassword.length < 8 ||
+      !/^[a-zA-Z0-9]+$/.test(newPassword)
+    ) {
+      setPasswordState("8자리 이상, 알파벳과 숫자만 입력 가능.(특수문자 제외)");
+    } else {
+      setPasswordState("유효한 비밀번호 입니다.");
+    }
+  };
+
+  const handlePasswordConfirm = (event) => {
+    const newPasswordConfirm = event.target.value;
+    setConfirmPassword(newPasswordConfirm);
+
+    if (newPasswordConfirm !== "") {
+      if (newPasswordConfirm !== newPassword) {
+        setPasswordConfirmState("동일한 비밀번호를 입력하여 주세요.");
+      } else {
+        setPasswordConfirmState("비밀번호 확인완료.");
+      }
+    }
+  };
 
   const handlePasswordChange = () => {
     const userId = localStorage.getItem('userId');
@@ -52,26 +80,27 @@ function ChangePasswordPage({ user, onChangePassword }) {
         <span className="mogako-title">MOGAKO FLAG</span>  {/* 텍스트 추가 */}
         <div className="password-fields">
             <TextField
-                label="현재 비밀번호"
-                type="password"
-                fullWidth
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
-            />
-            <TextField
                 label="새로운 비밀번호"
                 type="password"
                 fullWidth
                 value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
+                onChange={(e) => {
+                    setNewPassword(e.target.value);
+                    handlePasswordCheck(e);
+                }}
             />
+            <div>{passwordState}</div>
             <TextField
                 label="비밀번호 확인"
                 type="password"
                 fullWidth
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                    handlePasswordConfirm(e);
+                }}
             />
+            <div>{passwordConfirmState}</div>
         </div>
         <button className="changePasswordBtn" onClick={handlePasswordChange}>
             비밀번호 변경
@@ -80,7 +109,7 @@ function ChangePasswordPage({ user, onChangePassword }) {
             취소하기
         </button>
     </div>
-);
+  );
 }
 
 export default ChangePasswordPage;
