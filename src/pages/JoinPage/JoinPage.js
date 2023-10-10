@@ -104,8 +104,10 @@ function JoinPage() {
     "&:hover": {
       mr: 1,
       borderRadius: "3px",
+      backgroundColor: "rgba(0, 0, 0, 0.08)", 
+    }
       // border: "0px solid dodgerblue",
-    },
+    
   };
 
   //이메일 유효성 체크
@@ -238,13 +240,19 @@ function JoinPage() {
         component="main"
         sx={{
           height: "60vh",
+          maxHeight: "400",
           my: 0,
           mx: 0,
         }}
       >
         <CssBaseline />
         
-        <Grid item elevation={6} square>
+        <Grid 
+          item 
+          elevation={6} 
+          square
+
+          >
         <Box
             sx={{
               mt: 0,
@@ -254,17 +262,19 @@ function JoinPage() {
               flexDirection: "column",
               alignItems: "center",
               maxWidth: 350,
+              maxHeight: 500,
             }} >
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h6">
               회원 정보를 기입하세요.
             </Typography>
             <Box
+              className="boxUnderH6"
               component="form"
               noValidate
               onSubmit={handleSubmit}
               sx={{ mt: 1 }}
             >
-              <Box sx={{ mb: 4 }}>
+              <Box sx={{  }}>
                 {" "}
                 {/* 유저네임, 닉네임, 이메일 부분 */}
                 <TextField
@@ -282,10 +292,12 @@ function JoinPage() {
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton
+                        className="dupleBtnUsername"
                           sx={iconButtonStyles}
                           edge="end"
                           color={usernameChecked ? "primary" : "default"}
                           onClick={() => checkDuplicate("username")}
+                          disableRipple={true}
                         >
                           {usernameChecked ? "확인완료!" : "중복확인"}
                         </IconButton>
@@ -293,6 +305,7 @@ function JoinPage() {
                     ),
                   }}
                 />
+          
                 <TextField
                   margin="dense"
                   autoComplete="nickname"
@@ -308,11 +321,12 @@ function JoinPage() {
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton
-                          disableRipple //안먹힘! 클릭효과 안사라짐!
+                          className="dupleBtnNickname"
                           sx={iconButtonStyles}
                           edge="end"
                           color={nicknameChecked ? "primary" : "default"}
                           onClick={() => checkDuplicate("nickname")}
+                          disableRipple={true}
                         >
                           {nicknameChecked ? "확인완료!" : "중복확인"}
                         </IconButton>
@@ -335,10 +349,12 @@ function JoinPage() {
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton
+                          className="dupleBtnEmail"
                           sx={iconButtonStyles}
                           edge="end"
                           color={emailChecked ? "primary" : "default"}
                           onClick={() => checkDuplicate("email")}
+                          disableRipple={true}
                         >
                           {emailChecked ? "확인완료!" : "중복확인"}
                         </IconButton>
@@ -348,10 +364,18 @@ function JoinPage() {
                 />
               </Box>
 
-              <Box>
+              <Box
+               sx={{
+                mt: 1.5
+
+               }}
+              >
                 {" "}
                 {/* 패스워드 부분 */}
                 <TextField
+                  sx={{
+                    
+                  }}
                   margin="dense"
                   required
                   fullWidth
@@ -365,7 +389,9 @@ function JoinPage() {
                   variant="body2"
                   gutterBottom
                   component="div"
+                  margin= "0"
                   sx={{
+                    fontSize: 12,
                     mt: 0,
                     color:
                       passwordState === "유효한 비밀번호 입니다."
@@ -390,6 +416,7 @@ function JoinPage() {
                   gutterBottom
                   component="div"
                   sx={{
+                    fontSize: 12,
                     mt: 0,
                     color:
                       passwordConfirmState === "비밀번호 확인완료."
@@ -403,7 +430,7 @@ function JoinPage() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                  sx={{ mt: 2, mb: 2 }}
                   disabled={isButtonDisabled}
                 >
                   가입완료

@@ -13,8 +13,16 @@ import { useNavigate, Link } from "react-router-dom";
 
 import axiosInstance from "../../Components/AxiosInstance"; // 경로는 axiosInstance 파일 위치에 따라 조정
 
-const WorldWide = "/images/worldwide.jpeg";
+// const WorldWide = "/images/worldwide.jpeg";
 
+const linkStyle = {
+  color: 'dodgerblue',
+  // textDecoration: 'none', 
+  '&:visited': {
+      color: 'dodgerblue',
+  },
+};
+ 
 const defaultTheme = createTheme();
 
 function LoginPage({ onLogin }) {
@@ -130,11 +138,11 @@ function LoginPage({ onLogin }) {
               </Button>
               <Grid container justifyContent="center" alignItems="center">
                 <Grid item>
-                  <Link to="join" variant="body2">
+                  <Muilink component={Link} to="join" variant="body2" sx={linkStyle}>
                     {"If you don't have an ID, please click here!"}
-                  </Link>
+                  </Muilink>
                 </Grid>
-              </Grid>
+             </Grid>
             </Box>
           </Box>
         </Grid>
