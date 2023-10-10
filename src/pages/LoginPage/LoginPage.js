@@ -42,7 +42,8 @@ function LoginPage({ onLogin }) {
           localStorage.setItem("userId", response.data.userInfo.userId);
           localStorage.setItem('nickname', response.data.userInfo.nickname);
           localStorage.setItem('username', response.data.userInfo.username);
-          // localStorage.setItem('AccessToken', response.data.accessToken.value);
+
+
 
           onLogin(true); // 로그인 성공시 true로 설정
           navigate("/choosestage");
@@ -63,7 +64,7 @@ function LoginPage({ onLogin }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log({
-      email: username,
+      username: username,
       password: password,
     });
   };

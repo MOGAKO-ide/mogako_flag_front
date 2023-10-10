@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../Components/AxiosInstance';
 import './MyPage.css';
 
-function MyPage({ user, onLogout }) {
+function MyPage({ onLogout }) {
   const navigate = useNavigate();
   const userId = localStorage.getItem('username');
   const nickname = localStorage.getItem('nickname');

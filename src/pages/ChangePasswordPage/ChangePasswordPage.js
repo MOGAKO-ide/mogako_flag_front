@@ -79,6 +79,14 @@ function ChangePasswordPage({ user, onChangePassword }) {
     <div className="my-page-container">
         <span className="mogako-title">MOGAKO FLAG</span> 
         <div className="password-fields">
+            <TextField	
+                label="현재 비밀번호"	
+                type="password"	
+                fullWidth	
+                value={currentPassword}	
+                onChange={(e) => setCurrentPassword(e.target.value)}	
+                InputLabelProps={{ shrink: true }}
+            />
             <TextField
                 label="새로운 비밀번호"
                 type="password"
